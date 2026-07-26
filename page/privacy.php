@@ -14,13 +14,16 @@ if (!function_exists('g5site_cfg')) {
 
 $privacy_site_name   = function_exists('g5site_cfg') ? g5site_cfg('site_name', '본 사이트') : '본 사이트';
 $privacy_company     = function_exists('g5site_cfg') ? g5site_cfg('company_name', $privacy_site_name) : $privacy_site_name;
-$privacy_ceo         = function_exists('g5site_cfg') ? g5site_cfg('ceo_name', '대표자명') : '대표자명';
-$privacy_email       = function_exists('g5site_cfg') ? g5site_cfg('email', 'help@example.com') : 'help@example.com';
-$privacy_phone       = function_exists('g5site_cfg') ? g5site_cfg('phone', '010-0000-0000') : '010-0000-0000';
-$privacy_address     = function_exists('g5site_cfg') ? g5site_cfg('address', '주소를 입력하세요') : '주소를 입력하세요';
-$privacy_manager     = function_exists('g5site_cfg') ? g5site_cfg('privacy_manager', '') : '';
+$privacy_ceo         = function_exists('g5site_cfg') ? trim((string) g5site_cfg('ceo_name', '')) : '';
+$privacy_email       = function_exists('g5site_cfg') ? trim((string) g5site_cfg('email', '')) : '';
+$privacy_phone       = function_exists('g5site_cfg') ? trim((string) g5site_cfg('phone', '')) : '';
+$privacy_address     = function_exists('g5site_cfg') ? trim((string) g5site_cfg('address', '')) : '';
+if ($privacy_address === '주소를 입력하세요') {
+    $privacy_address = '';
+}
+$privacy_manager     = function_exists('g5site_cfg') ? trim((string) g5site_cfg('privacy_manager', '')) : '';
 if ($privacy_manager === '') {
-    $privacy_manager = $privacy_ceo;
+    $privacy_manager = $privacy_ceo !== '' ? $privacy_ceo : $privacy_company;
 }
 
 $page_title       = '개인정보처리방침';
@@ -101,9 +104,15 @@ g5_page_start('개인정보처리방침');
                 <ul class="page-list">
                     <li><strong>회사명:</strong> <?php echo htmlspecialchars($privacy_company, ENT_QUOTES, 'UTF-8'); ?></li>
                     <li><strong>개인정보 보호책임자:</strong> <?php echo htmlspecialchars($privacy_manager, ENT_QUOTES, 'UTF-8'); ?></li>
+                    <?php if ($privacy_phone !== '') { ?>
                     <li><strong>연락처:</strong> <?php echo htmlspecialchars($privacy_phone, ENT_QUOTES, 'UTF-8'); ?></li>
+                    <?php } ?>
+                    <?php if ($privacy_email !== '') { ?>
                     <li><strong>이메일:</strong> <a href="mailto:<?php echo htmlspecialchars($privacy_email, ENT_QUOTES, 'UTF-8'); ?>"><?php echo htmlspecialchars($privacy_email, ENT_QUOTES, 'UTF-8'); ?></a></li>
+                    <?php } ?>
+                    <?php if ($privacy_address !== '') { ?>
                     <li><strong>주소:</strong> <?php echo htmlspecialchars($privacy_address, ENT_QUOTES, 'UTF-8'); ?></li>
+                    <?php } ?>
                 </ul>
             </section>
 
