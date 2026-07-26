@@ -13,12 +13,13 @@ if (!defined('_GNUBOARD_')) {
 
 return array(
     /* =========================================================
-     * [공통 유지] — 복사본에도 그대로 둡니다
+     * [공통 유지] — 전화는 전 사이트 동일
+     * 확인되지 않은 사업자·주소는 검색엔진에 노출하지 않습니다.
      * ========================================================= */
     'phone' => '010-4265-2634',
-    'ceo_name' => '김배관',
-    'business_no' => '123-45-67890',
-    'email' => 'help@example.com',
+    'ceo_name' => '',
+    'business_no' => '',
+    'email' => '',
     'builder_project_id' => 'gangdong-drain',
 
     /* =========================================================
@@ -28,7 +29,8 @@ return array(
     'region_short' => '광주',
     'region_initial' => '원',
     'company_name' => '원진하수구',
-    'address' => '경기도 광주시 경안로 00',
+    /* 실제 사업장 주소 확인 후 입력. 허위 지역 주소는 비워 둡니다. */
+    'address' => '',
 
     'site_name' => '원진하수구 | 경기광주하수구청소',
     'site_desc' => '경기광주 하수구청소·막힘·싱크대·변기 배수 문제 전화 상담. 오포·초월·곤지암 등 전 지역 출동.',
@@ -57,10 +59,8 @@ return array(
     'opening_hours' => 'Mo-Su 08:00-22:00',
     'opening_hours_label' => '연중무휴 08:00~22:00 전화 상담',
     'price_range' => '₩₩',
-    /* 동일 엔티티 외부 링크 (GEO) — 운영 시 네이버 플레이스/블로그 등 입력 */
+    /* 동일 엔티티 외부 링크 (GEO) — 네이버 플레이스/블로그 등 확인된 URL만 입력 */
     'same_as' => array(
-        // 'https://blog.naver.com/원진하수구',
-        // 'https://map.naver.com/원진하수구',
     ),
     /* 제공 서비스 (Service / hasOfferCatalog) */
     'service_types' => array(
@@ -223,6 +223,50 @@ return array(
             'title' => '아파트 변기 막힘 상담',
             'body' => '물이 차올라 불안했는데 전화 상담이 바로 연결됐고, 현장 상황에 맞는 안내를 받았습니다.',
             'rating' => 5,
+        ),
+    ),
+
+    /*
+     * 시공사례 샘플 (게시판 글이 없을 때 홈 갤러리 대체)
+     * 관리자 notice 게시판에 아래 제목 패턴으로 실등록하면 API 사례가 우선 표시됩니다.
+     * 예: “오포 싱크대 막힘 청소”, “초월 배수구 악취 해결”
+     */
+    'sample_cases' => array(
+        array(
+            'area' => '오포',
+            'title' => '오포 싱크대 막힘 청소',
+            'body' => '주방 기름때 반복 막힘. 전화로 증상 확인 후 배수 흐름을 정상화한 사례 안내.',
+            'href' => '/page/service-sink.php',
+        ),
+        array(
+            'area' => '초월',
+            'title' => '초월 욕실 배수구 악취 해결',
+            'body' => '샤워 후 악취·느린 배수. 트랩·연결 배관 확인 순서를 안내한 사례.',
+            'href' => '/page/service-drain.php',
+        ),
+        array(
+            'area' => '곤지암',
+            'title' => '곤지암 상가 주방 하수구청소',
+            'body' => '영업 전 주방 배수 지연. 가능 시간과 청소 범위를 전화로 조율한 사례.',
+            'href' => '/page/service-commercial.php',
+        ),
+        array(
+            'area' => '경안·송정',
+            'title' => '경안 변기 막힘 긴급 상담',
+            'body' => '수위 상승으로 사용 중단. 물 내림을 멈추고 전화 상담으로 확인한 사례.',
+            'href' => '/page/service-toilet.php',
+        ),
+        array(
+            'area' => '광남',
+            'title' => '광남 배관 청소·반복 막힘',
+            'body' => '같은 배관이 주기적으로 막혀 내부 오염 확인이 필요했던 사례.',
+            'href' => '/page/service-pipe.php',
+        ),
+        array(
+            'area' => '신현·능평',
+            'title' => '신현 세탁실 배수 역류',
+            'body' => '세탁기 배수 시 베란다 역류. 배수구·연결 배관 확인 안내 사례.',
+            'href' => '/page/service-drain.php',
         ),
     ),
 );

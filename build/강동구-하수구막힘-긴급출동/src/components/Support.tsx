@@ -193,8 +193,14 @@ export const Footer = () => {
         <div>
           <h3 className="text-slate-300 font-extrabold text-xl mb-5">{contactInfo.companyName}</h3>
           <div className="space-y-2 font-medium">
-            <p>대표: {contactInfo.ceo} | 사업자등록번호: {contactInfo.businessNumber}</p>
-            <p>주소: {contactInfo.address}</p>
+            {(contactInfo.ceo || contactInfo.businessNumber) ? (
+              <p>
+                {contactInfo.ceo ? <>대표: {contactInfo.ceo}</> : null}
+                {contactInfo.ceo && contactInfo.businessNumber ? ' | ' : null}
+                {contactInfo.businessNumber ? <>사업자등록번호: {contactInfo.businessNumber}</> : null}
+              </p>
+            ) : null}
+            {contactInfo.address ? <p>주소: {contactInfo.address}</p> : null}
             <p className="text-slate-300">
               고객센터:{' '}
               <a href={telHref()} className="text-orange-400 font-extrabold text-lg hover:text-orange-300">

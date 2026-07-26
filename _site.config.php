@@ -233,6 +233,7 @@ if (!function_exists('g5site_public_profile')) {
             'homeSummary'      => isset($clone['home_summary']) ? (string) $clone['home_summary'] : '',
             'homeFaqs'         => $array_value('home_faqs'),
             'processSteps'     => $array_value('process_steps'),
+            'sampleCases'      => $array_value('sample_cases'),
         );
     }
 }

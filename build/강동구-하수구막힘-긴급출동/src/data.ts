@@ -17,6 +17,13 @@ export type Faq = {
   a: string;
 };
 
+export type SampleCase = {
+  area: string;
+  title: string;
+  body: string;
+  href?: string;
+};
+
 type SiteRuntimeConfig = {
   regionName?: string;
   regionShort?: string;
@@ -43,6 +50,7 @@ type SiteRuntimeConfig = {
   homeSummary?: string;
   homeFaqs?: Faq[];
   openingHoursLabel?: string;
+  sampleCases?: SampleCase[];
 };
 
 declare global {
@@ -86,6 +94,8 @@ export const homeSummary = runtime.homeSummary?.trim() || '';
 export const homeFaqs: Faq[] = Array.isArray(runtime.homeFaqs) ? runtime.homeFaqs : [];
 
 export const openingHoursLabel = runtime.openingHoursLabel?.trim() || '';
+
+export const sampleCases: SampleCase[] = Array.isArray(runtime.sampleCases) ? runtime.sampleCases : [];
 
 export function assetUrl(filename: string) {
   const projectId = runtime.builderProjectId || 'gangdong-drain';

@@ -18,9 +18,9 @@ return array(
      * [공통 유지] — 복사 사이트 전부 동일
      * ========================================================= */
     'phone' => '010-4265-2634',
-    'ceo_name' => '김배관',
-    'business_no' => '123-45-67890',
-    'email' => 'help@example.com',
+    'ceo_name' => '',
+    'business_no' => '',
+    'email' => '',
     'builder_project_id' => 'gangdong-drain',
 
     /* =========================================================
@@ -30,7 +30,7 @@ return array(
     'region_short' => '광주',
     'region_initial' => '원',
     'company_name' => '원진하수구',
-    'address' => '경기도 광주시 경안로 00',
+    'address' => '',
 
     'site_name' => '원진하수구 | 경기광주하수구청소',
     'site_desc' => '경기광주 하수구청소·막힘·싱크대·변기 배수 문제 전화 상담',

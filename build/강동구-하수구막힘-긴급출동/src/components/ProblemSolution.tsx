@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { AlertTriangle, Bath, CheckCircle2, Droplets, PhoneCall, Store, Waves } from 'lucide-react';
+import { AlertTriangle, Bath, Droplets, PhoneCall, Store, Waves } from 'lucide-react';
 import { assetUrl, phoneCtaLabel, phoneCtaSubLabel, regionName, telHref } from '../data';
 
 const symptomItems = [
@@ -64,19 +64,29 @@ const services = [
     image: assetUrl('sink-service.webp'),
     icon: Droplets,
     title: '싱크대·주방 청소',
-    caption: '기름때 · 느린 배수 · 반복 막힘 청소',
+    caption: '기름때 · 느린 배수 · 반복 막힘',
+    href: '/page/service-sink.php',
   },
   {
     image: assetUrl('drain-equipment.webp'),
     icon: Waves,
-    title: '하수구·배수구 청소',
+    title: '욕실·배수구 청소',
     caption: '역류 · 악취 · 내부 배관 점검',
+    href: '/page/service-drain.php',
+  },
+  {
+    image: assetUrl('drain-hero.webp'),
+    icon: Bath,
+    title: '변기 막힘',
+    caption: '수위 상승 · 느린 배수 · 오수 배관',
+    href: '/page/service-toilet.php',
   },
   {
     image: assetUrl('commercial-drain.webp'),
     icon: Store,
-    title: '음식점·상가 배수',
+    title: '상가·음식점',
     caption: '영업장 주방 · 바닥 배수 · 긴급 청소',
+    href: '/page/service-commercial.php',
   },
 ];
 
@@ -86,23 +96,26 @@ export const Services = () => (
       <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-10 md:mb-14">
         <div>
           <p className="text-orange-400 font-extrabold tracking-widest text-sm mb-3">SERVICE</p>
-          <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight break-keep">현장형 하수구청소</h2>
+          <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight break-keep">{regionName} 현장형 하수구청소</h2>
         </div>
-        <p className="text-slate-400 font-medium md:text-right break-keep">전화로 증상을 듣고<br className="hidden md:block" /> 필요한 청소·장비를 준비합니다.</p>
+        <p className="text-slate-400 font-medium md:text-right break-keep">
+          증상별 안내를 확인한 뒤<br className="hidden md:block" /> 전화로 상담하세요.
+          <a href="/page/service.php" className="block mt-2 text-orange-400 font-extrabold hover:text-orange-300">전체 서비스 보기 →</a>
+        </p>
       </div>
 
-      <div className="grid md:grid-cols-3 gap-5">
-        {services.map(({ image, icon: Icon, title, caption }, idx) => (
+      <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-5">
+        {services.map(({ image, icon: Icon, title, caption, href }, idx) => (
           <motion.a
             key={title}
-            href={telHref()}
+            href={href}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: idx * 0.08 }}
             className="group relative min-h-[420px] md:min-h-[520px] overflow-hidden rounded-[2rem] bg-slate-800"
           >
-            <img src={image} alt={title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <img src={image} alt={`${regionName} ${title}`} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/15 to-transparent" />
             <div className="absolute inset-x-0 bottom-0 p-6 md:p-8">
               <span className="mb-4 flex items-center justify-center w-12 h-12 rounded-2xl bg-orange-500 text-white shadow-lg">
@@ -111,7 +124,7 @@ export const Services = () => (
               <h3 className="text-2xl md:text-3xl font-black text-white mb-2">{title}</h3>
               <p className="text-slate-300 font-semibold break-keep">{caption}</p>
               <span className="mt-5 inline-flex items-center gap-2 text-orange-400 font-extrabold">
-                전화로 청소 상담 <PhoneCall className="w-4 h-4" />
+                서비스 자세히 보기 <PhoneCall className="w-4 h-4" />
               </span>
             </div>
           </motion.a>

@@ -25,6 +25,7 @@ export const Header = () => {
 
         <nav className="hidden lg:flex items-center gap-7">
           <button onClick={() => scrollTo('services')} className="text-sm font-bold text-slate-700 hover:text-orange-500 transition-colors">서비스</button>
+          <a href="/page/service.php" className="text-sm font-bold text-slate-700 hover:text-orange-500 transition-colors">증상별 안내</a>
           <button onClick={() => scrollTo('areas')} className="text-sm font-bold text-slate-700 hover:text-orange-500 transition-colors">출동지역</button>
           <a href="/bbs/board.php?bo_table=notice" className="text-sm font-bold text-slate-700 hover:text-orange-500 transition-colors">시공사례</a>
           <button onClick={() => scrollTo('reviews')} className="text-sm font-bold text-slate-700 hover:text-orange-500 transition-colors">후기</button>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, Images } from 'lucide-react';
-import { regionName } from '../data';
+import { regionName, sampleCases, telHref } from '../data';
 
 type CaseItem = {
   id: number;
@@ -60,7 +60,7 @@ export const CaseGallery = () => {
               {regionName} 하수구청소 사례
             </h2>
             <p className="text-slate-400 font-medium max-w-xl break-keep leading-relaxed">
-              현장에서 진행한 청소·막힘 작업 기록을 확인하세요. 새로 등록한 사례가 홈에 바로 반영됩니다.
+              현장에서 진행한 청소·막힘 작업 기록을 확인하세요. 관리자에서 등록한 사례가 홈에 바로 반영됩니다.
             </p>
           </div>
           <a
@@ -78,21 +78,7 @@ export const CaseGallery = () => {
               <div key={i} className="aspect-[4/3] rounded-3xl bg-slate-800/80 animate-pulse" />
             ))}
           </div>
-        ) : items.length === 0 ? (
-          <div className="rounded-3xl border border-dashed border-slate-700 bg-slate-900/60 px-6 py-16 text-center">
-            <p className="text-slate-300 font-bold text-lg mb-2">아직 등록된 시공사례가 없습니다</p>
-            <p className="text-slate-500 font-medium mb-8 break-keep">
-              관리자에서 사진과 함께 사례를 등록하면 이곳에 썸네일이 표시됩니다.
-            </p>
-            <a
-              href={listUrl}
-              className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-2xl font-bold transition-colors"
-            >
-              시공사례 게시판 열기
-              <ArrowRight className="w-4 h-4" />
-            </a>
-          </div>
-        ) : (
+        ) : items.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {items.map((item, idx) => (
               <motion.a
@@ -130,6 +116,43 @@ export const CaseGallery = () => {
                 </div>
               </motion.a>
             ))}
+          </div>
+        ) : sampleCases.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {sampleCases.map((item, idx) => (
+              <motion.a
+                key={`${item.area}-${item.title}`}
+                href={item.href || telHref()}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.35, delay: idx * 0.05 }}
+                className="rounded-3xl border border-slate-700 bg-slate-900/80 p-6 flex flex-col hover:border-orange-500/50 transition-colors"
+              >
+                <span className="inline-flex self-start mb-3 px-2.5 py-1 rounded-full bg-orange-500 text-white text-xs font-extrabold">
+                  {item.area}
+                </span>
+                <h3 className="text-white font-extrabold text-lg mb-2 break-keep">{item.title}</h3>
+                <p className="text-slate-400 text-sm font-medium leading-relaxed break-keep flex-grow">{item.body}</p>
+                <span className="mt-5 inline-flex items-center gap-1 text-orange-400 font-extrabold text-sm">
+                  같은 증상 전화상담 <ArrowRight className="w-4 h-4" />
+                </span>
+              </motion.a>
+            ))}
+          </div>
+        ) : (
+          <div className="rounded-3xl border border-dashed border-slate-700 bg-slate-900/60 px-6 py-16 text-center">
+            <p className="text-slate-300 font-bold text-lg mb-2">아직 등록된 시공사례가 없습니다</p>
+            <p className="text-slate-500 font-medium mb-8 break-keep">
+              관리자에서 사진과 함께 사례를 등록하면 이곳에 썸네일이 표시됩니다.
+            </p>
+            <a
+              href={listUrl}
+              className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-2xl font-bold transition-colors"
+            >
+              시공사례 게시판 열기
+              <ArrowRight className="w-4 h-4" />
+            </a>
           </div>
         )}
       </div>
