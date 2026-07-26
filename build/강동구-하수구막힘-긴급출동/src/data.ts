@@ -90,7 +90,7 @@ export function phoneCtaLabel(area = regionName) {
 }
 
 export function phoneCtaSubLabel(area = regionName) {
-  return `${area} 지금 전화상담`;
+  return `${area} 하수구청소 전화`;
 }
 
 export function telHref() {

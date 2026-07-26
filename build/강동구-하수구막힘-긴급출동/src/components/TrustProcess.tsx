@@ -18,7 +18,7 @@ export const Equipment = () => {
             >
               <img
                 src={assetUrl('drain-equipment.webp')}
-                alt="배관 내시경과 전문 하수구 청소 장비"
+                alt={`${regionName} 하수구청소용 배관 내시경·전문 장비`}
                 className="absolute inset-0 w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent"></div>
@@ -29,8 +29,8 @@ export const Equipment = () => {
                       <ShieldCheck className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <p className="font-extrabold text-lg md:text-xl mb-1">최신 내시경 및 배관 장비</p>
-                      <p className="text-slate-200 font-medium text-sm md:text-base">눈대중이 아닌 정확한 원인 파악을 위해 전문 장비로 점검합니다.</p>
+                      <p className="font-extrabold text-lg md:text-xl mb-1">청소에 맞는 전문 장비</p>
+                      <p className="text-slate-200 font-medium text-sm md:text-base">눈대중이 아니라 배관 안쪽 오염·막힘 위치를 확인한 뒤 청소합니다.</p>
                     </div>
                   </div>
                 </div>
@@ -46,12 +46,12 @@ export const Equipment = () => {
               viewport={{ once: true }}
             >
               <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight mb-6 break-keep">
-                반복되는 하수구 막힘,<br />
-                <span className="text-slate-900 underline decoration-orange-500 decoration-4 underline-offset-4">원인 확인이 중요합니다</span>
+                반복되는 배수 문제,<br />
+                <span className="text-slate-900 underline decoration-orange-500 decoration-4 underline-offset-4">청소 범위 확인이 먼저입니다</span>
               </h2>
               <p className="text-slate-600 text-lg font-medium leading-relaxed mb-10 break-keep">
                 한 번 뚫었다고 끝나는 문제가 아닐 수 있습니다.<br className="hidden sm:block" />
-                배관 안쪽에 기름때, 머리카락, 이물질, 슬러지가 남아 있다면 같은 문제가 반복될 수 있습니다.
+                기름때·머리카락·슬러지가 남아 있으면 같은 막힘이 다시 생깁니다.
               </p>
 
               <div className="space-y-8 mb-10">
@@ -85,16 +85,16 @@ export const Equipment = () => {
 
               {/* Navy Point Box (Checklist) */}
               <div className="bg-slate-900 rounded-[2rem] p-8 mb-6 shadow-xl shadow-slate-900/10">
-                <h4 className="text-white font-bold text-lg mb-5 flex items-center gap-2">
+                  <h4 className="text-white font-bold text-lg mb-5 flex items-center gap-2">
                   <ShieldCheck className="w-6 h-6 text-orange-400" />
-                  현장 점검 필수 확인사항
+                  하수구청소 전 확인사항
                 </h4>
                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-4">
                   {[
-                    "막힘 위치 확인",
+                    "막힘·오염 위치 확인",
                     "배관 내부 상태 점검",
-                    "악취 및 역류 원인 확인",
-                    "현장 상황별 작업 안내",
+                    "악취·역류 원인 확인",
+                    "청소 범위·장비 안내",
                     "작업 후 배수 상태 확인"
                   ].map((item, idx) => (
                     <li key={idx} className="flex items-center gap-3 text-slate-200 font-medium text-sm md:text-base">
@@ -136,32 +136,32 @@ export const Process = () => {
     {
       num: "01",
       icon: <MessageSquare className="w-6 h-6" />,
-      title: "상담 접수",
-      desc: "전화상담으로 현재 막힘 증상을 알려주세요."
+      title: "전화 접수",
+      desc: "위치와 막힘·악취 증상을 전화로 알려주세요. 사진·문의폼 없이 바로 안내합니다."
     },
     {
       num: "02",
       icon: <Search className="w-6 h-6" />,
-      title: "증상 확인",
-      desc: "막힌 위치, 물 내려가는 상태, 악취 또는 역류 여부를 확인합니다."
+      title: "증상·권역 확인",
+      desc: `${regionName} 어느 권역인지, 물이 어떻게 흐르는지 확인합니다.`
     },
     {
       num: "03",
       icon: <ClipboardList className="w-6 h-6" />,
-      title: "현장 상황 안내",
-      desc: "상담 내용을 바탕으로 예상 작업 방식과 확인이 필요한 부분을 안내드립니다."
+      title: "청소 방향 안내",
+      desc: "예상 청소 방식과 확인이 필요한 부분을 전화로 설명드립니다."
     },
     {
       num: "04",
       icon: <Wrench className="w-6 h-6" />,
-      title: "전문 장비 작업",
-      desc: "현장 상황에 따라 필요한 장비와 방식으로 막힘 문제를 처리합니다."
+      title: "현장 청소·작업",
+      desc: "상황에 맞는 장비로 막힘·오염을 처리합니다."
     },
     {
       num: "05",
       icon: <Sparkles className="w-6 h-6" />,
-      title: "배수 확인 및 마무리",
-      desc: "작업 후 물이 정상적으로 내려가는지 확인하고 관리 방법을 안내합니다."
+      title: "배수 확인",
+      desc: "작업 후 흐름을 확인하고 관리 팁을 안내합니다."
     }
   ];
 
@@ -170,11 +170,11 @@ export const Process = () => {
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight mb-5">
-            상담부터 마무리까지 이렇게 진행됩니다
+            전화 상담부터 청소 마무리까지
           </h2>
           <p className="text-slate-600 text-lg font-medium leading-relaxed max-w-2xl mx-auto break-keep">
-            처음 문의하시는 분도 쉽게 이해할 수 있도록<br className="hidden md:block" />
-            증상 확인부터 작업 안내까지 단계별로 진행됩니다.
+            처음 문의하셔도 쉽게 이해할 수 있도록<br className="hidden md:block" />
+            접수부터 배수 확인까지 단계별로 진행합니다.
           </p>
         </div>
 
@@ -222,8 +222,8 @@ export const Process = () => {
           <div className="bg-white border border-slate-200 rounded-2xl p-6 mb-8 flex flex-col sm:flex-row items-center sm:items-start justify-center gap-3 shadow-sm inline-flex w-full sm:w-auto mx-auto text-left sm:text-center">
             <Info className="w-5 h-5 text-slate-400 shrink-0 mt-0.5" />
             <p className="text-slate-600 text-sm md:text-base font-bold leading-relaxed break-keep">
-              작업 방식과 비용은 현장 상태에 따라 달라질 수 있습니다.<br className="hidden sm:block" />
-              상담 시 증상을 자세히 알려주시면 더 정확한 안내가 가능합니다.
+              청소 범위와 비용은 현장 상태에 따라 달라질 수 있습니다.<br className="hidden sm:block" />
+              전화로 증상·위치를 자세히 알려주시면 더 정확한 안내가 가능합니다.
             </p>
           </div>
 
@@ -257,16 +257,16 @@ export const Areas = () => {
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center lg:items-start">
           <div className="w-full lg:w-3/5">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-orange-50 rounded-full text-orange-600 font-bold text-sm mb-6 border border-orange-100 shadow-sm">
-              <MapPin className="w-4 h-4" /> {regionName} 전지역 출동
+              <MapPin className="w-4 h-4" /> {regionName} 권역 출동
             </div>
 
             <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight mb-6 break-keep">
-              동별 랜딩으로<br className="hidden sm:block" />
-              <span className="underline decoration-orange-500 decoration-4 underline-offset-4">우리 동네 상담</span>
+              권역별 페이지로<br className="hidden sm:block" />
+              <span className="underline decoration-orange-500 decoration-4 underline-offset-4">우리 동네 하수구청소</span>
             </h2>
 
             <p className="text-slate-600 text-lg font-bold mb-6 break-keep">
-              {areaSummary || regionName} 등 지역별 페이지에서 바로 전화 상담이 가능합니다.
+              {areaSummary || regionName} 등 지역 페이지에서 전화로 바로 상담할 수 있습니다.
             </p>
 
             <div className="flex flex-wrap gap-2 md:gap-3 mb-6">
@@ -292,7 +292,7 @@ export const Areas = () => {
             <div className="flex items-start gap-3 bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
               <Info className="w-5 h-5 text-slate-400 shrink-0 mt-0.5" />
               <p className="text-slate-600 font-medium text-sm md:text-base leading-relaxed break-keep">
-                목록에 없어도 {regionName} 인근이면 상담 가능합니다. 위치와 증상을 알려주세요.
+                목록에 없어도 {regionName}·인근이면 전화로 출동 가능 여부를 확인해 드립니다.
               </p>
             </div>
           </div>
@@ -306,12 +306,12 @@ export const Areas = () => {
               </div>
 
               <h3 className="text-2xl md:text-3xl font-extrabold text-white mb-4 leading-snug break-keep">
-                우리 동네도 상담 가능한지<br />
-                확인해보세요
+                우리 권역도<br />
+                출동 가능한지 확인
               </h3>
 
               <p className="text-slate-300 font-medium mb-10 break-keep">
-                현장 위치와 막힘 증상을 알려주시면<br />
+                현장 위치와 막힘·청소 증상을 알려주시면<br />
                 빠르게 안내해 드리겠습니다.
               </p>
 

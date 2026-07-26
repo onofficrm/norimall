@@ -16,7 +16,6 @@ if (!defined('_GNUBOARD_')) {
 return array(
     /* =========================================================
      * [공통 유지] — 복사 사이트 전부 동일
-     * 홈 히어로·헤더·하단바·CTA에 크게 표시되고 tel: 링크로 연결됩니다.
      * ========================================================= */
     'phone' => '010-4265-2634',
     'ceo_name' => '김배관',
@@ -25,49 +24,47 @@ return array(
     'builder_project_id' => 'gangdong-drain',
 
     /* =========================================================
-     * [사이트마다 변경] — 지역 SEO용
+     * [사이트마다 변경] — 원진하수구 · 경기광주 예시
      * ========================================================= */
-    'region_name' => '송파구',
-    'region_short' => '송파',
-    'region_initial' => '송',
-    'company_name' => '송파 하수구 해결센터',
-    'address' => '서울특별시 송파구 00로 00',
+    'region_name' => '경기광주',
+    'region_short' => '광주',
+    'region_initial' => '원',
+    'company_name' => '원진하수구',
+    'address' => '경기도 광주시 경안로 00',
 
-    'site_name' => '송파구 하수구막힘 긴급출동',
-    'site_desc' => '송파구 전 지역 하수구, 싱크대, 변기 막힘 긴급 상담',
-    'seo_title' => '송파구 하수구막힘 긴급출동',
-    'seo_description' => '송파구 전 지역 하수구, 싱크대, 변기 막힘 긴급출동 서비스',
-    'main_keyword' => '송파구하수구막힘',
+    'site_name' => '원진하수구 | 경기광주하수구청소',
+    'site_desc' => '경기광주 하수구청소·막힘·싱크대·변기 배수 문제 전화 상담',
+    'seo_title' => '경기광주하수구청소 | 원진하수구',
+    'seo_description' => '원진하수구는 경기광주하수구청소 전문. 오포·초월·곤지암 등 전 지역 전화 상담.',
+    'main_keyword' => '경기광주하수구청소',
     'sub_keywords' => array(
-        '송파구 싱크대 막힘',
-        '송파구 변기 막힘',
-        '송파구 배수구 막힘',
-        '송파구 하수구 긴급출동',
+        '경기광주 하수구막힘',
+        '오포 하수구청소',
+        '초월 하수구청소',
+        '곤지암 하수구청소',
     ),
-    'footer_desc' => '송파구 하수구·싱크대·변기 막힘 긴급출동',
+    'footer_desc' => '원진하수구 — 경기광주 하수구청소 전화 상담',
 
-    /* 지역 선택·동별 랜딩. 고정 URL이 없으면 /page/local.php?area=slug 사용 */
     'local_areas' => array(
-        array('slug' => 'jamsil', 'name' => '잠실동', 'label' => '잠실동 하수구막힘', 'url' => '/page/local.php?area=jamsil'),
-        array('slug' => 'songpa', 'name' => '송파동', 'label' => '송파동 하수구막힘', 'url' => '/page/local.php?area=songpa'),
-        array('slug' => 'garak', 'name' => '가락동', 'label' => '가락동 하수구막힘', 'url' => '/page/local.php?area=garak'),
+        array('slug' => 'opo', 'name' => '오포', 'label' => '오포 하수구청소', 'url' => '/page/local-opo.php', 'blurb' => '오포 일대 아파트·상가 하수구청소 전화 상담'),
+        array('slug' => 'chowol', 'name' => '초월', 'label' => '초월 하수구청소', 'url' => '/page/local-chowol.php', 'blurb' => '초월읍 주거·상가 배수 문제 안내'),
+        array('slug' => 'gonjiam', 'name' => '곤지암', 'label' => '곤지암 하수구청소', 'url' => '/page/local-gonjiam.php', 'blurb' => '곤지암읍 주방·하수구 막힘 상담'),
     ),
     'area_spots' => array(
-        '잠실역 인근', '송파나루역 인근', '가락시장역 인근',
+        '광주역 인근', '초월역 인근', '곤지암역 인근', '오포 고산',
     ),
 
-    /* 표시용 후기 — 지역별로 문구를 바꿔 중복 콘텐츠를 줄입니다 */
     'reviews' => array(
         array(
-            'area' => '잠실동',
-            'title' => '싱크대 막힘 빠른 상담',
-            'body' => '물이 안 내려가서 급했는데 전화 상담이 바로 연결됐습니다.',
+            'area' => '오포',
+            'title' => '싱크대 배수 청소 후 정상',
+            'body' => '전화로 증상만 말씀드려도 작업 방향을 바로 안내해 주셨어요.',
             'rating' => 5,
         ),
         array(
-            'area' => '송파동',
-            'title' => '욕실 배수 악취 해결',
-            'body' => '원인을 자세히 설명해 주시고 필요한 작업만 안내해 주셨습니다.',
+            'area' => '초월',
+            'title' => '욕실 악취 해결',
+            'body' => '원인을 설명해 주시고 필요한 청소만 진행해 주셨습니다.',
             'rating' => 5,
         ),
     ),

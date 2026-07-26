@@ -76,8 +76,8 @@ $site_config = array(
     'sales_no'            => '',
     'privacy_manager'     => '',
     'kakao_map_key'       => '',
-    'kakao_map_lat'       => '37.5665',
-    'kakao_map_lng'       => '126.9780',
+    'kakao_map_lat'       => '37.4294',
+    'kakao_map_lng'       => '127.2550',
     /* Google Maps — 내 주변 찾기 (components/maps, page/map-locator.php) */
     'google_maps_api_key'       => '',
     'map_default_lat'           => '10.3157',

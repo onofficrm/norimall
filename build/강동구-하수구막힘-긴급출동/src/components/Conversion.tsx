@@ -145,10 +145,10 @@ export const ExitPopup = () => {
             </button>
             <p className="text-orange-500 font-extrabold text-sm mb-2">잠깐만요</p>
             <h3 className="text-2xl font-black text-slate-900 tracking-tight mb-3 break-keep">
-              전화 한 통이면 됩니다
+              전화로 바로 상담하세요
             </h3>
             <p className="text-slate-600 font-medium mb-6 break-keep">
-              {area} 막힘 증상을 전화로 알려주시면 빠르게 안내드립니다.
+              {area} 하수구청소·막힘 증상을 전화로 알려주시면 빠르게 안내드립니다.
             </p>
             <div className="space-y-3">
               <PhoneCta area={area} className="w-full" />

@@ -5,9 +5,9 @@ import { assetUrl, contactInfo, getDongFromUrl, keywords, phoneCtaLabel, phoneCt
 
 export const Notices = () => {
   const promises = [
-    { num: '01', title: '사전 견적', desc: '현장 확인 후 필요한 작업만 안내' },
+    { num: '01', title: '사전 안내', desc: '전화로 증상 확인 후 필요한 청소만 안내' },
     { num: '02', title: '과잉 작업 없음', desc: '불필요한 공사·교체를 권하지 않음' },
-    { num: '03', title: '작업 후 확인', desc: '배수 상태를 확인하고 마무리' },
+    { num: '03', title: '배수 확인', desc: '작업 후 흐름을 확인하고 마무리' },
   ];
 
   return (
@@ -17,13 +17,13 @@ export const Notices = () => {
           <div className="relative min-h-[380px] lg:min-h-[600px]">
             <img
               src={assetUrl('commercial-drain.webp')}
-              alt="상가 하수구 현장 점검"
+              alt={`${regionName} 상가·영업장 하수구청소 현장`}
               className="absolute inset-0 w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-transparent to-transparent" />
             <div className="absolute left-6 right-6 bottom-6 md:left-8 md:bottom-8">
               <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-500 text-white font-extrabold text-sm">
-                <ShieldAlert className="w-4 h-4" /> 현장 원칙
+                <ShieldAlert className="w-4 h-4" /> 청소 원칙
               </span>
             </div>
           </div>
@@ -31,7 +31,7 @@ export const Notices = () => {
           <div className="p-7 md:p-12 lg:p-14 flex flex-col justify-center">
             <p className="text-orange-400 font-extrabold tracking-widest text-sm mb-3">OUR PROMISE</p>
             <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight leading-tight mb-10 break-keep">
-              필요한 작업만<br />정확하게
+              필요한 청소만<br />정확하게
             </h2>
             <div className="space-y-3">
               {promises.map((item) => (
@@ -54,36 +54,36 @@ export const Notices = () => {
 export const FAQ = () => {
   const faqs = [
     {
-      q: `${regionName} 전지역 상담 가능한가요?`,
-      a: `${regionName} 주요 지역의 하수구 막힘, 싱크대 막힘, 변기 막힘, 배수구 막힘 증상 상담이 가능합니다. 정확한 가능 여부는 위치와 시간에 따라 안내드립니다.`
+      q: `${regionName} 전 권역 하수구청소가 가능한가요?`,
+      a: `오포·초월·곤지암·경안·광남 등 ${regionName} 주요 권역의 하수구청소·막힘·배수 상담이 가능합니다. 정확한 출동 여부는 위치와 시간에 따라 안내드립니다.`
     },
     {
-      q: "하수구 막힘 비용은 얼마인가요?",
-      a: "비용은 막힘 정도, 배관 구조, 필요한 장비, 작업 범위에 따라 달라질 수 있습니다. 상담 시 증상을 알려주시면 가능한 범위에서 안내드립니다."
+      q: "하수구청소 비용은 얼마인가요?",
+      a: "비용은 오염·막힘 정도, 배관 구조, 필요한 장비, 청소 범위에 따라 달라질 수 있습니다. 전화로 증상을 알려주시면 가능한 범위에서 안내드립니다."
     },
     {
-      q: "싱크대 막힘도 가능한가요?",
-      a: "네. 싱크대 물 빠짐 불량, 악취, 반복 막힘 등 다양한 증상 상담이 가능합니다."
+      q: "싱크대 막힘도 청소 가능한가요?",
+      a: "네. 싱크대 물 빠짐 불량, 기름때, 악취, 반복 막힘 등 주방 배수 청소·상담이 가능합니다."
     },
     {
       q: "변기 막힘도 상담 가능한가요?",
-      a: "네. 변기 물이 잘 내려가지 않거나 물이 차오르는 증상도 상담 가능합니다."
+      a: "네. 변기 물이 잘 내려가지 않거나 물이 차오르는 증상도 전화로 상담 가능합니다."
     },
     {
-      q: "하수구 냄새가 심한데 막힘 문제인가요?",
-      a: "냄새의 원인은 배관 내부 오염, 트랩 문제, 역류, 배수 불량 등 다양할 수 있습니다. 증상 확인 후 안내가 필요합니다."
+      q: "하수구 냄새가 심한데 청소가 필요한가요?",
+      a: "냄새 원인은 배관 내부 오염, 트랩 문제, 역류, 배수 불량 등 다양할 수 있습니다. 증상 확인 후 청소·점검 방향을 안내합니다."
     },
     {
-      q: "밤이나 주말에도 상담 가능한가요?",
-      a: "긴급 상황은 상담 후 가능한 일정과 대응 여부를 안내드립니다."
+      q: "밤이나 주말에도 전화 상담이 되나요?",
+      a: "긴급 상황은 전화 상담 후 가능한 일정과 대응 여부를 안내드립니다."
     },
     {
-      q: "뚫어뻥으로 해결되지 않으면 어떻게 해야 하나요?",
-      a: "입구 쪽 문제가 아니라 배관 안쪽 막힘일 수 있습니다. 반복되거나 해결되지 않는 경우 전문 장비 점검이 필요할 수 있습니다."
+      q: "뚫어뻥으로 해결되지 않으면 어떻게 하나요?",
+      a: "입구 쪽만의 문제가 아니라 배관 안쪽 오염·막힘일 수 있습니다. 반복되면 전문 장비 점검·청소가 필요할 수 있습니다."
     },
     {
-      q: "작업 후 다시 막힐 수도 있나요?",
-      a: "배관 상태와 사용 환경에 따라 재발 가능성이 있을 수 있습니다. 반복 막힘이 있다면 원인 확인이 중요합니다."
+      q: "청소 후에도 다시 막힐 수 있나요?",
+      a: "배관 상태와 사용 환경에 따라 재발 가능성이 있습니다. 반복 막힘이 있다면 원인 확인이 중요합니다."
     }
   ];
 
@@ -94,7 +94,7 @@ export const FAQ = () => {
       <div className="max-w-3xl mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-5">
-            {keywords.main} 자주 묻는 질문
+            {keywords.main} FAQ
           </h2>
         </div>
 
@@ -150,10 +150,10 @@ export const FinalCTA = () => {
       <div className="absolute inset-0 bg-slate-950/80"></div>
       <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
         <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-6 leading-tight tracking-tight break-keep">
-          {area} 막힘,<br className="hidden md:block" /> 전화 한 통이면 상담이 빨라집니다
+          {area} 하수구청소,<br className="hidden md:block" /> 전화 한 통이면 안내가 빨라집니다
         </h2>
         <p className="text-slate-300 text-lg mb-10 font-medium break-keep leading-relaxed max-w-2xl mx-auto">
-          현재 증상과 위치를 알려주세요. 필요한 장비와 작업 방향을 빠르게 안내합니다.
+          현재 증상과 위치를 알려주세요. {contactInfo.companyName}가 필요한 청소·장비 방향을 빠르게 안내합니다.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

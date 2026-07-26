@@ -12,7 +12,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$board_skin_url.'/style.css">', 0
         <p>사진이 썸네일로 노출됩니다. 작업 전·후 사진을 함께 올리면 홈 갤러리에서도 잘 보입니다.</p>
         <ul>
             <li>대표 이미지는 <strong>첫 번째 첨부 파일</strong>이 사용됩니다.</li>
-            <li>제목 예: “천호동 싱크대 막힘 긴급출동”, “암사동 하수구 역류 해결”</li>
+            <li>제목 예: “오포 싱크대 막힘 청소”, “초월 하수구 역류 해결”, “곤지암 배수구 청소”</li>
             <li>가로 1200px 전후 JPG/PNG 권장</li>
         </ul>
     </div>

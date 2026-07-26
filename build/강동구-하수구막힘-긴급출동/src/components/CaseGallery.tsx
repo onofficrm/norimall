@@ -57,10 +57,10 @@ export const CaseGallery = () => {
               Case Gallery
             </div>
             <h2 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-3 break-keep">
-              최근 시공사례
+              {regionName} 하수구청소 사례
             </h2>
             <p className="text-slate-400 font-medium max-w-xl break-keep leading-relaxed">
-              {regionName} 현장 작업 사진을 갤러리로 확인하세요. 신규 등록 사례가 홈에 바로 반영됩니다.
+              현장에서 진행한 청소·막힘 작업 기록을 확인하세요. 새로 등록한 사례가 홈에 바로 반영됩니다.
             </p>
           </div>
           <a

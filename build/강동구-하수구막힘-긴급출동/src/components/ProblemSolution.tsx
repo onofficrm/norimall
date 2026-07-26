@@ -19,20 +19,20 @@ export const Symptoms = () => (
           viewport={{ once: true }}
           className="relative overflow-hidden rounded-[2rem] min-h-[430px] md:min-h-[560px] shadow-2xl"
         >
-          <img src={assetUrl('sink-service.webp')} alt="싱크대 배관 내시경 점검" className="absolute inset-0 w-full h-full object-cover" />
+          <img src={assetUrl('sink-service.webp')} alt={`${regionName} 싱크대·주방 배관 청소 점검`} className="absolute inset-0 w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
           <div className="absolute left-5 right-5 bottom-5 md:left-8 md:right-8 md:bottom-8 p-5 md:p-6 rounded-2xl bg-white/95 backdrop-blur shadow-xl">
-            <p className="text-orange-500 font-extrabold text-sm mb-1">증상이 반복된다면</p>
-            <p className="text-slate-900 font-extrabold text-xl md:text-2xl break-keep">배관 안쪽 원인부터 확인해야 합니다</p>
+            <p className="text-orange-500 font-extrabold text-sm mb-1">청소가 필요할 때</p>
+            <p className="text-slate-900 font-extrabold text-xl md:text-2xl break-keep">입구만 뚫지 말고 배관 안쪽까지</p>
           </div>
         </motion.div>
 
         <div>
           <span className="inline-flex items-center gap-2 text-orange-600 font-extrabold text-sm mb-4">
-            <AlertTriangle className="w-4 h-4" /> QUICK CHECK
+            <AlertTriangle className="w-4 h-4" /> CLEANING CHECK
           </span>
           <h2 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight leading-tight mb-8 break-keep">
-            지금 보이는 증상,<br />그냥 두지 마세요
+            이런 증상이면<br />하수구청소가 필요합니다
           </h2>
           <div className="grid sm:grid-cols-2 gap-3 mb-8">
             {symptomItems.map(({ icon: Icon, title }) => (
@@ -63,20 +63,20 @@ const services = [
   {
     image: assetUrl('sink-service.webp'),
     icon: Droplets,
-    title: '싱크대·주방 배관',
-    caption: '느린 배수 · 기름때 · 반복 막힘',
+    title: '싱크대·주방 청소',
+    caption: '기름때 · 느린 배수 · 반복 막힘 청소',
   },
   {
     image: assetUrl('drain-equipment.webp'),
     icon: Waves,
-    title: '하수구·배수구',
+    title: '하수구·배수구 청소',
     caption: '역류 · 악취 · 내부 배관 점검',
   },
   {
     image: assetUrl('commercial-drain.webp'),
     icon: Store,
-    title: '음식점·상가',
-    caption: '영업장 주방 · 바닥 배수 · 긴급 작업',
+    title: '음식점·상가 배수',
+    caption: '영업장 주방 · 바닥 배수 · 긴급 청소',
   },
 ];
 
@@ -86,9 +86,9 @@ export const Services = () => (
       <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-10 md:mb-14">
         <div>
           <p className="text-orange-400 font-extrabold tracking-widest text-sm mb-3">SERVICE</p>
-          <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight break-keep">현장에 맞는 전문 작업</h2>
+          <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight break-keep">현장형 하수구청소</h2>
         </div>
-        <p className="text-slate-400 font-medium md:text-right break-keep">전화로 증상을 확인하고<br className="hidden md:block" /> 필요한 장비를 준비합니다.</p>
+        <p className="text-slate-400 font-medium md:text-right break-keep">전화로 증상을 듣고<br className="hidden md:block" /> 필요한 청소·장비를 준비합니다.</p>
       </div>
 
       <div className="grid md:grid-cols-3 gap-5">
@@ -111,7 +111,7 @@ export const Services = () => (
               <h3 className="text-2xl md:text-3xl font-black text-white mb-2">{title}</h3>
               <p className="text-slate-300 font-semibold break-keep">{caption}</p>
               <span className="mt-5 inline-flex items-center gap-2 text-orange-400 font-extrabold">
-                상담하기 <PhoneCall className="w-4 h-4" />
+                전화로 청소 상담 <PhoneCall className="w-4 h-4" />
               </span>
             </div>
           </motion.a>
@@ -127,8 +127,8 @@ export const ContextTypes = () => (
       <div className="grid md:grid-cols-[1fr_1.2fr] items-center gap-8">
         <div className="text-white">
           <p className="font-extrabold tracking-widest text-sm mb-3 text-orange-100">RESIDENTIAL · COMMERCIAL</p>
-          <h2 className="text-3xl md:text-5xl font-black tracking-tight leading-tight mb-5 break-keep">집부터 영업장까지<br />현장 맞춤 대응</h2>
-          <p className="text-orange-50 font-semibold text-lg break-keep">아파트 · 빌라 · 식당 · 카페 · 상가 · 사무실</p>
+          <h2 className="text-3xl md:text-5xl font-black tracking-tight leading-tight mb-5 break-keep">주거부터 영업장까지<br />청소·막힘 맞춤 대응</h2>
+          <p className="text-orange-50 font-semibold text-lg break-keep">아파트 · 빌라 · 식당 · 카페 · 상가 · 공장</p>
         </div>
         <div className="grid grid-cols-3 gap-2 md:gap-4">
           {[

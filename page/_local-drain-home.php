@@ -1,9 +1,9 @@
 <?php
 /**
- * 강동구 동별 하수구 랜딩 — 빌더 홈 렌더 + 동 이름 주입
+ * 경기광주 권역별 하수구청소 랜딩 — 빌더 홈 렌더 + 권역 이름 주입
  *
  * 호출 전 설정:
- *   $local_dong_slug  (예: cheonho)
+ *   $local_dong_slug  (예: opo)
  *   $local_dong_name  (선택 — 없으면 복제 설정에서 조회)
  */
 if (!isset($local_dong_slug)) {
@@ -24,6 +24,8 @@ if (is_file(G5_PATH . '/_site.config.php')) {
 
 $local_dong_slug = preg_replace('/[^a-z0-9-]/', '', strtolower((string) $local_dong_slug));
 $local_dong_name = isset($local_dong_name) ? trim(strip_tags((string) $local_dong_name)) : '';
+$local_area_blurb = '';
+$local_area_label = '';
 
 if (function_exists('g5site_public_profile')) {
     $public_profile = g5site_public_profile();
@@ -34,6 +36,12 @@ if (function_exists('g5site_public_profile')) {
         if (isset($profile_area['slug'], $profile_area['name'])
             && (string) $profile_area['slug'] === $local_dong_slug) {
             $local_dong_name = trim(strip_tags((string) $profile_area['name']));
+            if (!empty($profile_area['blurb'])) {
+                $local_area_blurb = trim(strip_tags((string) $profile_area['blurb']));
+            }
+            if (!empty($profile_area['label'])) {
+                $local_area_label = trim(strip_tags((string) $profile_area['label']));
+            }
             break;
         }
     }
@@ -88,9 +96,12 @@ if (function_exists('onoff_builder_rewrite_asset_paths')) {
     $html = onoff_builder_rewrite_asset_paths($html, $project_id, $entry);
 }
 
-$site_name = function_exists('g5site_cfg') ? g5site_cfg('site_name', '하수구 해결센터') : '하수구 해결센터';
-$page_title = $local_dong_name . ' 하수구막힘 긴급출동 | ' . $site_name;
-$page_desc = $local_dong_name . ' 싱크대·변기·배수구·하수구 역류 긴급 상담. 전화 한 통이면 빠른 안내.';
+$company = function_exists('g5site_cfg') ? g5site_cfg('company_name', '원진하수구') : '원진하수구';
+$keyword_label = $local_area_label !== '' ? $local_area_label : ($local_dong_name . ' 하수구청소');
+$page_title = $keyword_label . ' | ' . $company;
+$page_desc = $local_area_blurb !== ''
+    ? $local_area_blurb
+    : ($local_dong_name . ' 하수구청소·싱크대·변기·배수구 막힘 전화 상담. 원진하수구가 경기광주 출동을 안내합니다.');
 $canonical_path = isset($local_page_url) && $local_page_url !== ''
     ? (string) $local_page_url
     : '/page/local-' . $local_dong_slug . '.php';
@@ -101,11 +112,13 @@ if (function_exists('onoff_builder_inject_site_profile')) {
         'activeArea' => $local_dong_name,
         'seoTitle' => $page_title,
         'seoDescription' => $page_desc,
-        'mainKeyword' => $local_dong_name . ' 하수구막힘',
+        'mainKeyword' => $keyword_label,
         'secondaryKeywords' => array(
+            $local_dong_name . ' 하수구막힘',
             $local_dong_name . ' 싱크대 막힘',
             $local_dong_name . ' 변기 막힘',
-            $local_dong_name . ' 배수구 막힘',
+            $local_dong_name . ' 배수구 청소',
+            '경기광주하수구청소',
         ),
         'canonical' => $canonical,
     ));

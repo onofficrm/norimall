@@ -64,7 +64,7 @@ if ($digits === '' || strlen($digits) < 9 || strlen($digits) > 15) {
     symptom_json(false, '연락처를 확인해 주세요.');
 }
 if ($area === '') {
-    $area = '강동구';
+    $area = '경기광주';
 }
 if ($symptom === '') {
     $symptom = '하수구/배수 막힘 상담';

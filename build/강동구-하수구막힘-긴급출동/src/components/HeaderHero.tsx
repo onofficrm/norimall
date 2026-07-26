@@ -19,7 +19,7 @@ export const Header = () => {
           </div>
           <div>
             <span className="font-extrabold text-lg md:text-2xl tracking-tight text-slate-900 leading-none">{contactInfo.companyName}</span>
-            <p className="hidden md:block text-[11px] text-slate-500 font-medium mt-0.5 tracking-tight">{area} 하수구 막힘 상담</p>
+            <p className="hidden md:block text-[11px] text-slate-500 font-medium mt-0.5 tracking-tight">{area} 하수구청소 · 전화상담</p>
           </div>
         </a>
 
@@ -69,8 +69,8 @@ export const Hero = () => {
       <section className="relative min-h-[720px] md:min-h-[780px] flex items-end overflow-hidden bg-slate-950 pt-24">
         <img
           src={assetUrl('drain-hero.webp')}
-          alt={`${regionName} 하수구 전문 기사의 배관 내시경 점검`}
-          className="absolute inset-0 w-full h-full object-cover object-[68%_center]"
+          alt={`${contactInfo.companyName} ${regionName} 하수구청소 · 배관 내시경 현장`}
+          className="absolute inset-0 w-full h-full object-cover object-[62%_center]"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/75 to-slate-950/5" />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-transparent to-slate-950/25" />
@@ -87,17 +87,17 @@ export const Hero = () => {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-orange-500" />
               </span>
-              {area} 전지역 긴급 상담
+              {contactInfo.companyName} · {area} 전지역 출동
             </div>
 
             <h1 className="text-4xl sm:text-5xl md:text-7xl font-black text-white leading-[1.08] mb-5 tracking-[-0.04em] break-keep">
-              {area} 하수구 막힘,<br />
-              <span className="text-orange-500">안쪽까지 봐야</span><br />
-              해결됩니다
+              {area}하수구청소,<br />
+              <span className="text-orange-500">막힌 배관까지</span><br />
+              말끔히
             </h1>
 
             <p className="text-lg md:text-xl text-slate-200 mb-6 font-semibold break-keep">
-              싱크대 · 변기 · 배수구 · 하수구 역류
+              하수구 · 싱크대 · 변기 · 배수구 청소 · 역류 대응
             </p>
 
             <div className="mb-7">
@@ -123,12 +123,12 @@ export const Hero = () => {
                 className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 text-white px-8 py-5 rounded-2xl font-extrabold text-lg transition-colors"
               >
                 <ArrowDown className="w-5 h-5" />
-                막힘 증상 확인하기
+                청소·막힘 증상 보기
               </button>
             </div>
 
             <div className="mt-8 flex flex-wrap gap-2">
-              {['내시경 점검', '전문 장비', `${area} 출동`].map((point) => (
+              {['배관 청소', '내시경 점검', `${area} 출동`].map((point) => (
                 <span key={point} className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-950/50 text-slate-100 text-sm font-bold border border-white/10">
                   <CheckCircle2 className="w-4 h-4 text-orange-500" /> {point}
                 </span>
@@ -142,22 +142,22 @@ export const Hero = () => {
         <div className="max-w-7xl mx-auto px-4 flex flex-wrap items-center justify-center lg:justify-between gap-y-4 gap-x-8">
           <div className="flex items-center gap-2.5 text-white font-bold text-sm md:text-base">
             <Clock className="w-5 h-5 text-orange-500" />
-            <span>24시간 상담 가능</span>
+            <span>전화 상담 우선 안내</span>
           </div>
           <div className="hidden lg:block w-1 h-1 rounded-full bg-slate-700" />
           <div className="flex items-center gap-2.5 text-white font-bold text-sm md:text-base">
             <MapPin className="w-5 h-5 text-orange-500" />
-            <span>{area === regionName ? `${regionName} 전지역` : `${area} · ${regionName}`}</span>
+            <span>{area === regionName ? `${regionName} 전 권역` : `${area} · ${regionName}`}</span>
           </div>
           <div className="hidden lg:block w-1 h-1 rounded-full bg-slate-700" />
           <div className="flex items-center gap-2.5 text-white font-bold text-sm md:text-base">
             <ShieldCheck className="w-5 h-5 text-orange-500" />
-            <span>싱크대·변기·배수구</span>
+            <span>하수구·싱크대·변기 청소</span>
           </div>
           <div className="hidden lg:block w-1 h-1 rounded-full bg-slate-700" />
           <div className="flex items-center gap-2.5 text-white font-bold text-sm md:text-base">
             <Wrench className="w-5 h-5 text-orange-500" />
-            <span>하수구 역류 상담</span>
+            <span>역류·악취 원인 확인</span>
           </div>
         </div>
       </div>
