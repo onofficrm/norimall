@@ -222,6 +222,17 @@ if (!function_exists('g5site_public_profile')) {
             'areaSpots'        => $array_value('area_spots'),
             'reviews'          => $array_value('reviews'),
             'builderProjectId' => g5site_cfg('home_builder_bridge_id', 'gangdong-drain'),
+            /* SEO / AEO / GEO 보강 */
+            'geoLat'           => isset($clone['geo_lat']) ? (string) $clone['geo_lat'] : (string) g5site_cfg('kakao_map_lat', ''),
+            'geoLng'           => isset($clone['geo_lng']) ? (string) $clone['geo_lng'] : (string) g5site_cfg('kakao_map_lng', ''),
+            'openingHours'     => isset($clone['opening_hours']) ? (string) $clone['opening_hours'] : '',
+            'openingHoursLabel'=> isset($clone['opening_hours_label']) ? (string) $clone['opening_hours_label'] : '',
+            'priceRange'       => isset($clone['price_range']) ? (string) $clone['price_range'] : '',
+            'sameAs'           => $array_value('same_as'),
+            'serviceTypes'     => $array_value('service_types'),
+            'homeSummary'      => isset($clone['home_summary']) ? (string) $clone['home_summary'] : '',
+            'homeFaqs'         => $array_value('home_faqs'),
+            'processSteps'     => $array_value('process_steps'),
         );
     }
 }

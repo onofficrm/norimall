@@ -12,6 +12,11 @@ export type Review = {
   rating: number;
 };
 
+export type Faq = {
+  q: string;
+  a: string;
+};
+
 type SiteRuntimeConfig = {
   regionName?: string;
   regionShort?: string;
@@ -35,6 +40,9 @@ type SiteRuntimeConfig = {
   assetBase?: string;
   activeArea?: string;
   canonical?: string;
+  homeSummary?: string;
+  homeFaqs?: Faq[];
+  openingHoursLabel?: string;
 };
 
 declare global {
@@ -72,6 +80,12 @@ export const localAreas = Array.isArray(runtime.localAreas) ? runtime.localAreas
 export const areaSpots = Array.isArray(runtime.areaSpots) ? runtime.areaSpots : [];
 
 export const reviews = Array.isArray(runtime.reviews) ? runtime.reviews : [];
+
+export const homeSummary = runtime.homeSummary?.trim() || '';
+
+export const homeFaqs: Faq[] = Array.isArray(runtime.homeFaqs) ? runtime.homeFaqs : [];
+
+export const openingHoursLabel = runtime.openingHoursLabel?.trim() || '';
 
 export function assetUrl(filename: string) {
   const projectId = runtime.builderProjectId || 'gangdong-drain';

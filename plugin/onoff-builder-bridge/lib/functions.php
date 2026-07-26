@@ -738,6 +738,210 @@ if (!function_exists('onoff_builder_resolve_import_index_file')) {
     }
 }
 
+if (!function_exists('onoff_builder_build_seo_graph')) {
+    /**
+     * SEO/AEO/GEO용 schema.org @graph JSON-LD 문자열을 생성합니다.
+     * LocalBusiness(PlumbingService) + WebSite + BreadcrumbList + FAQPage + HowTo + Service.
+     *
+     * @param array  $profile g5site_public_profile() + overrides
+     * @param string $canonical
+     * @param string $site_url
+     * @param string $title
+     * @param string $description
+     * @param int    $json_options
+     * @return string
+     */
+    function onoff_builder_build_seo_graph($profile, $canonical, $site_url, $title, $description, $json_options)
+    {
+        $val = function ($key, $default = '') use ($profile) {
+            return isset($profile[$key]) ? $profile[$key] : $default;
+        };
+        $str = function ($key, $default = '') use ($profile) {
+            return isset($profile[$key]) ? trim((string) $profile[$key]) : $default;
+        };
+
+        $company = $str('companyName', $title);
+        $region = $str('regionName');
+        $active_area = $str('activeArea');
+        $base = $site_url !== '' ? $site_url : rtrim(preg_replace('#(/[^/]*)?$#', '', $canonical), '/');
+        if ($base === '') {
+            $base = $canonical;
+        }
+
+        $biz_id = $base . '/#business';
+        $web_id = $base . '/#website';
+
+        /* areaServed — 권역 페이지면 해당 권역, 홈이면 전 권역 */
+        $area_served = array();
+        if ($active_area !== '') {
+            $area_served[] = array('@type' => 'Place', 'name' => $active_area);
+        } else {
+            $local_areas = $val('localAreas', array());
+            if (is_array($local_areas)) {
+                foreach ($local_areas as $a) {
+                    if (isset($a['name']) && $a['name'] !== '') {
+                        $area_served[] = array('@type' => 'Place', 'name' => (string) $a['name']);
+                    }
+                }
+            }
+            if ($region !== '') {
+                array_unshift($area_served, array('@type' => 'Place', 'name' => $region));
+            }
+        }
+
+        /* LocalBusiness (PlumbingService) */
+        $business = array(
+            '@type' => array('LocalBusiness', 'PlumbingService'),
+            '@id' => $biz_id,
+            'name' => $company,
+            'url' => $base . '/',
+            'description' => $description,
+        );
+        $phone = $str('phone');
+        if ($phone !== '') {
+            $business['telephone'] = $phone;
+        }
+        $email = $str('email');
+        if ($email !== '' && filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $business['email'] = $email;
+        }
+        $address = $str('address');
+        $addr = array('@type' => 'PostalAddress', 'addressCountry' => 'KR');
+        if ($region !== '') {
+            $addr['addressRegion'] = $region;
+        }
+        if ($address !== '' && $address !== '주소를 입력하세요') {
+            $addr['streetAddress'] = $address;
+        }
+        $business['address'] = $addr;
+
+        $lat = $str('geoLat');
+        $lng = $str('geoLng');
+        if ($lat !== '' && $lng !== '' && is_numeric($lat) && is_numeric($lng)) {
+            $business['geo'] = array(
+                '@type' => 'GeoCoordinates',
+                'latitude' => (float) $lat,
+                'longitude' => (float) $lng,
+            );
+        }
+        $hours = $str('openingHours');
+        if ($hours !== '') {
+            $business['openingHours'] = $hours;
+        }
+        $price = $str('priceRange');
+        if ($price !== '') {
+            $business['priceRange'] = $price;
+        }
+        if (!empty($area_served)) {
+            $business['areaServed'] = $area_served;
+        }
+        $same_as = $val('sameAs', array());
+        if (is_array($same_as)) {
+            $same_as = array_values(array_filter(array_map('trim', $same_as)));
+            if (!empty($same_as)) {
+                $business['sameAs'] = $same_as;
+            }
+        }
+
+        /* hasOfferCatalog — 서비스 목록 */
+        $service_types = $val('serviceTypes', array());
+        if (is_array($service_types) && !empty($service_types)) {
+            $offers = array();
+            foreach ($service_types as $svc) {
+                $svc = trim((string) $svc);
+                if ($svc === '') {
+                    continue;
+                }
+                $offers[] = array(
+                    '@type' => 'Offer',
+                    'itemOffered' => array('@type' => 'Service', 'name' => ($region !== '' ? $region . ' ' : '') . $svc),
+                );
+            }
+            if (!empty($offers)) {
+                $business['hasOfferCatalog'] = array(
+                    '@type' => 'OfferCatalog',
+                    'name' => ($region !== '' ? $region . ' 하수구청소 서비스' : '하수구청소 서비스'),
+                    'itemListElement' => $offers,
+                );
+            }
+        }
+
+        $graph = array($business);
+
+        /* WebSite */
+        $graph[] = array(
+            '@type' => 'WebSite',
+            '@id' => $web_id,
+            'url' => $base . '/',
+            'name' => $company,
+            'inLanguage' => 'ko-KR',
+            'publisher' => array('@id' => $biz_id),
+        );
+
+        /* BreadcrumbList */
+        $crumbs = array(
+            array('@type' => 'ListItem', 'position' => 1, 'name' => '홈', 'item' => $base . '/'),
+        );
+        if ($active_area !== '') {
+            $crumbs[] = array('@type' => 'ListItem', 'position' => 2, 'name' => '출동지역', 'item' => $base . '/#areas');
+            $crumbs[] = array('@type' => 'ListItem', 'position' => 3, 'name' => $active_area . ' 하수구청소', 'item' => $canonical);
+        }
+        $graph[] = array('@type' => 'BreadcrumbList', 'itemListElement' => $crumbs);
+
+        /* FAQPage — 화면 FAQ와 동일 텍스트 (AEO) */
+        $home_faqs = $val('homeFaqs', array());
+        if (is_array($home_faqs) && !empty($home_faqs)) {
+            $faq_items = array();
+            foreach ($home_faqs as $faq) {
+                $q = isset($faq['q']) ? trim((string) $faq['q']) : '';
+                $a = isset($faq['a']) ? trim((string) $faq['a']) : '';
+                if ($q === '' || $a === '') {
+                    continue;
+                }
+                $faq_items[] = array(
+                    '@type' => 'Question',
+                    'name' => $q,
+                    'acceptedAnswer' => array('@type' => 'Answer', 'text' => $a),
+                );
+            }
+            if (!empty($faq_items)) {
+                $graph[] = array('@type' => 'FAQPage', 'mainEntity' => $faq_items);
+            }
+        }
+
+        /* HowTo — 진행 단계 (AEO) */
+        $steps = $val('processSteps', array());
+        if (is_array($steps) && !empty($steps)) {
+            $howto_steps = array();
+            $pos = 1;
+            foreach ($steps as $step) {
+                $name = isset($step['name']) ? trim((string) $step['name']) : '';
+                $text = isset($step['text']) ? trim((string) $step['text']) : '';
+                if ($name === '') {
+                    continue;
+                }
+                $howto_steps[] = array(
+                    '@type' => 'HowToStep',
+                    'position' => $pos++,
+                    'name' => $name,
+                    'text' => $text !== '' ? $text : $name,
+                );
+            }
+            if (!empty($howto_steps)) {
+                $graph[] = array(
+                    '@type' => 'HowTo',
+                    'name' => ($region !== '' ? $region . ' 하수구청소 진행 방법' : '하수구청소 진행 방법'),
+                    'step' => $howto_steps,
+                );
+            }
+        }
+
+        $doc = array('@context' => 'https://schema.org', '@graph' => $graph);
+        $out = json_encode($doc, $json_options);
+        return $out === false ? '{}' : $out;
+    }
+}
+
 if (!function_exists('onoff_builder_inject_site_profile')) {
     /**
      * 복제 사이트 공개 변수와 홈 SEO 메타를 정적 빌더 HTML에 주입합니다.
@@ -804,36 +1008,27 @@ if (!function_exists('onoff_builder_inject_site_profile')) {
             $profile_json = '{}';
         }
 
-        $schema = array(
-            '@context' => 'https://schema.org',
-            '@type' => 'LocalBusiness',
-            'name' => isset($profile['companyName']) ? (string) $profile['companyName'] : $title,
-            'url' => $canonical,
-            'telephone' => isset($profile['phone']) ? (string) $profile['phone'] : '',
-            'address' => array(
-                '@type' => 'PostalAddress',
-                'streetAddress' => isset($profile['address']) ? (string) $profile['address'] : '',
-                'addressRegion' => isset($profile['regionName']) ? (string) $profile['regionName'] : '',
-                'addressCountry' => 'KR',
-            ),
-        );
-        $schema_json = json_encode($schema, $json_options);
-        if ($schema_json === false) {
-            $schema_json = '{}';
-        }
+        $graph_json = onoff_builder_build_seo_graph($profile, $canonical, $site_url, $title, $description, $json_options);
 
         $head = "\n"
             . '<title>' . $escape($title) . '</title>' . "\n"
             . '<meta name="description" content="' . $escape($description) . '">' . "\n"
             . '<meta name="keywords" content="' . $escape($keywords) . '">' . "\n"
-            . '<meta name="robots" content="index,follow">' . "\n"
+            . '<meta name="robots" content="index,follow,max-image-preview:large">' . "\n"
             . '<link rel="canonical" href="' . $escape($canonical) . '">' . "\n"
             . '<meta property="og:type" content="website">' . "\n"
+            . '<meta property="og:site_name" content="' . $escape(isset($profile['companyName']) ? $profile['companyName'] : $title) . '">' . "\n"
+            . '<meta property="og:locale" content="ko_KR">' . "\n"
             . '<meta property="og:title" content="' . $escape($title) . '">' . "\n"
             . '<meta property="og:description" content="' . $escape($description) . '">' . "\n"
             . '<meta property="og:url" content="' . $escape($canonical) . '">' . "\n"
+            . '<meta name="twitter:card" content="summary_large_image">' . "\n"
+            . '<meta name="twitter:title" content="' . $escape($title) . '">' . "\n"
+            . '<meta name="twitter:description" content="' . $escape($description) . '">' . "\n"
+            . '<meta name="geo.region" content="KR-41">' . "\n"
+            . '<meta name="geo.placename" content="' . $escape(isset($profile['regionName']) ? $profile['regionName'] : '') . '">' . "\n"
             . '<script>window.__SITE_CONFIG__=' . $profile_json . ';</script>' . "\n"
-            . '<script type="application/ld+json">' . $schema_json . '</script>' . "\n";
+            . '<script type="application/ld+json">' . $graph_json . '</script>' . "\n";
 
         return preg_replace('/<head([^>]*)>/i', '<head$1>' . $head, $html, 1);
     }

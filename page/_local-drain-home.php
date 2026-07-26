@@ -107,6 +107,30 @@ $canonical_path = isset($local_page_url) && $local_page_url !== ''
     : '/page/local-' . $local_dong_slug . '.php';
 $canonical = (defined('G5_URL') ? G5_URL : '') . $canonical_path;
 
+/* 권역별 요약·FAQ (AEO) — 페이지마다 문장을 달리해 중복 콘텐츠를 줄입니다 */
+$local_summary = $local_area_blurb !== ''
+    ? $local_area_blurb
+    : ($company . '는 ' . $local_dong_name . '에서 하수구·싱크대·변기 막힘과 배관 청소를 전화 상담으로 안내하는 하수구청소 업체입니다.');
+
+$local_faqs = array(
+    array(
+        'q' => $local_dong_name . ' 하수구청소가 가능한가요?',
+        'a' => $company . '는 ' . $local_dong_name . ' 및 경기광주 인근의 하수구청소·막힘·배수 상담이 가능합니다. 정확한 출동 여부는 위치와 시간에 따라 전화로 안내드립니다.',
+    ),
+    array(
+        'q' => $local_dong_name . ' 하수구청소 비용은 얼마인가요?',
+        'a' => '비용은 ' . $local_dong_name . ' 현장의 오염·막힘 정도, 배관 구조, 청소 범위에 따라 달라집니다. 전화로 증상을 알려주시면 가능한 범위에서 안내드립니다.',
+    ),
+    array(
+        'q' => $local_dong_name . ' 싱크대·변기 막힘도 상담되나요?',
+        'a' => '네. ' . $local_dong_name . ' 주방 싱크대, 화장실 변기, 배수구 악취·역류 등 다양한 배수 문제를 전화로 상담할 수 있습니다.',
+    ),
+    array(
+        'q' => $local_dong_name . ' 밤·주말에도 전화 상담이 되나요?',
+        'a' => '긴급 상황은 전화 상담 후 가능한 일정과 대응 여부를 안내드립니다. ' . $local_dong_name . ' 인근이면 출동 가능 여부를 함께 확인해 드립니다.',
+    ),
+);
+
 if (function_exists('onoff_builder_inject_site_profile')) {
     $html = onoff_builder_inject_site_profile($html, $project_id, array(
         'activeArea' => $local_dong_name,
@@ -121,6 +145,8 @@ if (function_exists('onoff_builder_inject_site_profile')) {
             '경기광주하수구청소',
         ),
         'canonical' => $canonical,
+        'homeSummary' => $local_summary,
+        'homeFaqs' => $local_faqs,
     ));
 }
 

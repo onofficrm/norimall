@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ChevronDown, ShieldAlert, PhoneCall } from 'lucide-react';
-import { assetUrl, contactInfo, getDongFromUrl, keywords, phoneCtaLabel, phoneCtaSubLabel, regionName, telHref } from '../data';
+import { ChevronDown, ShieldAlert, PhoneCall, Info } from 'lucide-react';
+import { assetUrl, contactInfo, getDongFromUrl, homeFaqs, homeSummary, keywords, openingHoursLabel, phoneCtaLabel, phoneCtaSubLabel, regionName, telHref } from '../data';
 
 export const Notices = () => {
   const promises = [
@@ -51,51 +51,64 @@ export const Notices = () => {
   );
 };
 
+const defaultFaqs = [
+  {
+    q: `${regionName} 전 권역 하수구청소가 가능한가요?`,
+    a: `오포·초월·곤지암·경안·광남 등 ${regionName} 주요 권역의 하수구청소·막힘·배수 상담이 가능합니다. 정확한 출동 여부는 위치와 시간에 따라 안내드립니다.`
+  },
+  {
+    q: "하수구청소 비용은 얼마인가요?",
+    a: "비용은 오염·막힘 정도, 배관 구조, 필요한 장비, 청소 범위에 따라 달라질 수 있습니다. 전화로 증상을 알려주시면 가능한 범위에서 안내드립니다."
+  },
+  {
+    q: "싱크대 막힘도 청소 가능한가요?",
+    a: "네. 싱크대 물 빠짐 불량, 기름때, 악취, 반복 막힘 등 주방 배수 청소·상담이 가능합니다."
+  },
+  {
+    q: "변기 막힘도 상담 가능한가요?",
+    a: "네. 변기 물이 잘 내려가지 않거나 물이 차오르는 증상도 전화로 상담 가능합니다."
+  },
+  {
+    q: "하수구 냄새가 심한데 청소가 필요한가요?",
+    a: "냄새 원인은 배관 내부 오염, 트랩 문제, 역류, 배수 불량 등 다양할 수 있습니다. 증상 확인 후 청소·점검 방향을 안내합니다."
+  },
+  {
+    q: "밤이나 주말에도 전화 상담이 되나요?",
+    a: "긴급 상황은 전화 상담 후 가능한 일정과 대응 여부를 안내드립니다."
+  },
+  {
+    q: "뚫어뻥으로 해결되지 않으면 어떻게 하나요?",
+    a: "입구 쪽만의 문제가 아니라 배관 안쪽 오염·막힘일 수 있습니다. 반복되면 전문 장비 점검·청소가 필요할 수 있습니다."
+  },
+  {
+    q: "청소 후에도 다시 막힐 수 있나요?",
+    a: "배관 상태와 사용 환경에 따라 재발 가능성이 있습니다. 반복 막힘이 있다면 원인 확인이 중요합니다."
+  }
+];
+
 export const FAQ = () => {
-  const faqs = [
-    {
-      q: `${regionName} 전 권역 하수구청소가 가능한가요?`,
-      a: `오포·초월·곤지암·경안·광남 등 ${regionName} 주요 권역의 하수구청소·막힘·배수 상담이 가능합니다. 정확한 출동 여부는 위치와 시간에 따라 안내드립니다.`
-    },
-    {
-      q: "하수구청소 비용은 얼마인가요?",
-      a: "비용은 오염·막힘 정도, 배관 구조, 필요한 장비, 청소 범위에 따라 달라질 수 있습니다. 전화로 증상을 알려주시면 가능한 범위에서 안내드립니다."
-    },
-    {
-      q: "싱크대 막힘도 청소 가능한가요?",
-      a: "네. 싱크대 물 빠짐 불량, 기름때, 악취, 반복 막힘 등 주방 배수 청소·상담이 가능합니다."
-    },
-    {
-      q: "변기 막힘도 상담 가능한가요?",
-      a: "네. 변기 물이 잘 내려가지 않거나 물이 차오르는 증상도 전화로 상담 가능합니다."
-    },
-    {
-      q: "하수구 냄새가 심한데 청소가 필요한가요?",
-      a: "냄새 원인은 배관 내부 오염, 트랩 문제, 역류, 배수 불량 등 다양할 수 있습니다. 증상 확인 후 청소·점검 방향을 안내합니다."
-    },
-    {
-      q: "밤이나 주말에도 전화 상담이 되나요?",
-      a: "긴급 상황은 전화 상담 후 가능한 일정과 대응 여부를 안내드립니다."
-    },
-    {
-      q: "뚫어뻥으로 해결되지 않으면 어떻게 하나요?",
-      a: "입구 쪽만의 문제가 아니라 배관 안쪽 오염·막힘일 수 있습니다. 반복되면 전문 장비 점검·청소가 필요할 수 있습니다."
-    },
-    {
-      q: "청소 후에도 다시 막힐 수 있나요?",
-      a: "배관 상태와 사용 환경에 따라 재발 가능성이 있습니다. 반복 막힘이 있다면 원인 확인이 중요합니다."
-    }
-  ];
+  const faqs = homeFaqs.length > 0 ? homeFaqs : defaultFaqs;
+  const summary = homeSummary || `${contactInfo.companyName}는 ${regionName}에서 하수구·싱크대·변기 막힘과 배관 청소를 전화 상담으로 안내하는 하수구청소 업체입니다.`;
 
   const [openIdx, setOpenIdx] = useState<number | null>(0);
 
   return (
     <section id="faq" className="py-24 bg-slate-50 scroll-mt-20">
       <div className="max-w-3xl mx-auto px-4">
-        <div className="text-center mb-16">
+        <div className="text-center mb-10">
           <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-5">
             {keywords.main} FAQ
           </h2>
+        </div>
+
+        <div data-speakable="true" className="mb-10 flex items-start gap-3 bg-white border border-orange-100 rounded-2xl p-5 md:p-6 shadow-sm">
+          <Info className="w-5 h-5 text-orange-500 shrink-0 mt-0.5" />
+          <div>
+            <p className="text-slate-800 font-bold leading-relaxed break-keep">{summary}</p>
+            {openingHoursLabel ? (
+              <p className="mt-2 text-sm text-slate-500 font-medium">{openingHoursLabel}</p>
+            ) : null}
+          </div>
         </div>
 
         <div className="space-y-4">
