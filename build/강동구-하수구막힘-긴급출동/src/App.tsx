@@ -1,7 +1,9 @@
 import { Header, Hero, MobileBottomBar } from './components/HeaderHero';
 import { Symptoms, Services, ContextTypes } from './components/ProblemSolution';
 import { Equipment, Process, Areas } from './components/TrustProcess';
+import { CaseGallery } from './components/CaseGallery';
 import { Notices, FAQ, FinalCTA, Footer } from './components/Support';
+import { ExitPopup, Reviews } from './components/Conversion';
 
 export default function App() {
   return (
@@ -15,12 +17,15 @@ export default function App() {
         <Equipment />
         <Process />
         <Areas />
+        <CaseGallery />
+        <Reviews />
         <Notices />
         <FAQ />
         <FinalCTA />
       </main>
       <Footer />
       <MobileBottomBar />
+      <ExitPopup />
     </div>
   );
 }

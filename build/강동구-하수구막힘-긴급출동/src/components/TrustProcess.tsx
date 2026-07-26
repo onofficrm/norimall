@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
-import { Camera, Zap, Wrench, Search, MapPin, Clock, ShieldCheck, CheckCircle2, Info, PhoneCall, MessageSquare, ClipboardList, Sparkles } from 'lucide-react';
-import { contactInfo } from '../data';
+import { Wrench, Search, MapPin, ShieldCheck, CheckCircle2, Info, PhoneCall, MessageSquare, ClipboardList, Sparkles } from 'lucide-react';
+import { areaSpots, assetUrl, localAreas, localAreaUrl, phoneCtaLabel, phoneCtaSubLabel, regionName, telHref } from '../data';
 
 export const Equipment = () => {
   return (
@@ -16,9 +16,9 @@ export const Equipment = () => {
               viewport={{ once: true }}
               className="relative rounded-[2.5rem] overflow-hidden shadow-2xl aspect-[4/5] lg:aspect-auto lg:h-[800px] border-4 border-slate-50"
             >
-              <img 
-                src="https://images.unsplash.com/photo-1581092921461-eab62e97a780?q=80&w=1000&auto=format&fit=crop" 
-                alt="강동구하수구막힘 전문 장비 점검" 
+              <img
+                src={assetUrl('drain-equipment.webp')}
+                alt="배관 내시경과 전문 하수구 청소 장비"
                 className="absolute inset-0 w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent"></div>
@@ -113,13 +113,15 @@ export const Equipment = () => {
                 </p>
               </div>
 
-              {/* CTA Button */}
               <a
-                href={`tel:${contactInfo.phone}`}
-                className="inline-flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-8 py-5 rounded-2xl font-bold text-lg transition-all hover:-translate-y-1 shadow-lg shadow-orange-500/30 w-full sm:w-auto"
+                href={telHref()}
+                className="inline-flex flex-col items-center justify-center gap-1 bg-orange-500 hover:bg-orange-600 text-white px-8 py-5 rounded-2xl font-extrabold transition-all hover:-translate-y-1 shadow-lg shadow-orange-500/30 w-full sm:w-auto leading-none"
               >
-                <PhoneCall className="w-5 h-5" />
-                반복 막힘 상담하기
+                <span className="inline-flex items-center gap-2 text-sm opacity-95">
+                  <PhoneCall className="w-5 h-5" />
+                  {phoneCtaSubLabel(regionName)}
+                </span>
+                <span className="text-2xl md:text-3xl tracking-tight">{phoneCtaLabel(regionName)}</span>
               </a>
             </motion.div>
           </div>
@@ -135,7 +137,7 @@ export const Process = () => {
       num: "01",
       icon: <MessageSquare className="w-6 h-6" />,
       title: "상담 접수",
-      desc: "전화, 카카오톡, 문의폼으로 현재 막힘 증상을 알려주세요."
+      desc: "전화상담으로 현재 막힘 증상을 알려주세요."
     },
     {
       num: "02",
@@ -227,11 +229,14 @@ export const Process = () => {
 
           <div>
             <a
-              href={`tel:${contactInfo.phone}`}
-              className="inline-flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-10 py-5 rounded-2xl font-bold text-xl transition-all hover:-translate-y-1 shadow-lg shadow-orange-500/30"
+              href={telHref()}
+              className="inline-flex flex-col items-center justify-center gap-1 bg-orange-500 hover:bg-orange-600 text-white px-10 py-5 rounded-2xl font-extrabold transition-all hover:-translate-y-1 shadow-lg shadow-orange-500/30 leading-none"
             >
-              <PhoneCall className="w-6 h-6" />
-              지금 작업 상담하기
+              <span className="inline-flex items-center gap-2 text-sm opacity-95">
+                <PhoneCall className="w-5 h-5" />
+                {phoneCtaSubLabel(regionName)}
+              </span>
+              <span className="text-2xl md:text-3xl tracking-tight">{phoneCtaLabel(regionName)}</span>
             </a>
           </div>
         </div>
@@ -242,87 +247,86 @@ export const Process = () => {
 };
 
 export const Areas = () => {
-  const dongs = [
-    "천호동", "성내동", "길동", "암사동", "둔촌동", "명일동", "고덕동", "상일동", "강일동",
-    "천호역 인근", "강동역 인근", "길동역 인근", "둔촌동역 인근", "암사역 인근", "명일역 인근", "고덕역 인근", "상일동역 인근"
-  ];
+  const areaSummary = localAreas.slice(0, 3).map((area) => area.name.replace(/동$/, '')).join('·');
 
   return (
     <section id="areas" className="py-24 bg-white scroll-mt-20 relative overflow-hidden">
-      {/* Map-like subtle background */}
-      <div className="absolute inset-0 opacity-5 bg-[url('https://www.transparenttextures.com/patterns/cartographer.png')] pointer-events-none"></div>
-      
+      <div className="absolute inset-0 opacity-5 bg-[url('https://www.transparenttextures.com/patterns/cartographer.png')] pointer-events-none" />
+
       <div className="max-w-7xl mx-auto px-4 relative z-10">
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center lg:items-start">
-          
-          {/* Left Text & Tags Area */}
           <div className="w-full lg:w-3/5">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-orange-50 rounded-full text-orange-600 font-bold text-sm mb-6 border border-orange-100 shadow-sm">
-              <MapPin className="w-4 h-4" /> 강동구 전지역 출동
-            </div>
-            
-            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight mb-6 break-keep">
-              강동구 전지역<br className="hidden sm:block" />
-              <span className="text-slate-900 underline decoration-orange-500 decoration-4 underline-offset-4">하수구 막힘 상담 가능</span>
-            </h2>
-            
-            <p className="text-slate-600 text-lg font-bold mb-6 break-keep">
-              강동구 내 주거지역, 상가, 사무실, 음식점, 아파트, 빌라, 오피스텔 등 다양한 현장 상담이 가능합니다.
-            </p>
-            
-            <div className="bg-slate-50 border border-slate-200 rounded-3xl p-6 md:p-8 mb-8 shadow-sm">
-              <p className="text-slate-600 font-medium leading-relaxed break-keep">
-                <span className="font-bold text-slate-800">강동구하수구막힘</span> 문제는 지역 특성과 건물 구조에 따라 증상이 다르게 나타날 수 있습니다.<br />
-                아파트, 빌라, 상가, 음식점, 사무실 등 현장마다 배관 구조와 막힘 원인이 다르기 때문에 증상 확인 후 상황에 맞는 상담이 필요합니다.
-              </p>
+              <MapPin className="w-4 h-4" /> {regionName} 전지역 출동
             </div>
 
-            <div className="flex flex-wrap gap-2 md:gap-3 mb-8">
-              {dongs.map((dong, idx) => (
-                <span key={idx} className="px-4 py-2 md:px-5 md:py-2.5 bg-white border border-slate-200 text-slate-700 rounded-full font-bold text-sm shadow-sm hover:border-slate-300 hover:bg-slate-50 transition-colors">
-                  {dong}
+            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight mb-6 break-keep">
+              동별 랜딩으로<br className="hidden sm:block" />
+              <span className="underline decoration-orange-500 decoration-4 underline-offset-4">우리 동네 상담</span>
+            </h2>
+
+            <p className="text-slate-600 text-lg font-bold mb-6 break-keep">
+              {areaSummary || regionName} 등 지역별 페이지에서 바로 전화 상담이 가능합니다.
+            </p>
+
+            <div className="flex flex-wrap gap-2 md:gap-3 mb-6">
+              {localAreas.map((area) => (
+                <a
+                  key={area.slug}
+                  href={localAreaUrl(area)}
+                  className="px-4 py-2.5 bg-white border border-slate-200 text-slate-800 rounded-xl font-extrabold text-sm shadow-sm hover:border-orange-400 hover:text-orange-600 transition-colors"
+                >
+                  {area.name}
+                </a>
+              ))}
+            </div>
+
+            <div className="flex flex-wrap gap-2 mb-8">
+              {areaSpots.map((name) => (
+                <span key={name} className="px-3 py-1.5 bg-slate-50 border border-slate-100 text-slate-500 rounded-lg font-bold text-xs">
+                  {name}
                 </span>
               ))}
             </div>
-            
+
             <div className="flex items-start gap-3 bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
               <Info className="w-5 h-5 text-slate-400 shrink-0 mt-0.5" />
               <p className="text-slate-600 font-medium text-sm md:text-base leading-relaxed break-keep">
-                내 위치가 해당 지역에 없어도 강동구 인근이면 상담 가능합니다.<br />
-                현재 위치와 증상을 알려주시면 가능 여부를 안내드립니다.
+                목록에 없어도 {regionName} 인근이면 상담 가능합니다. 위치와 증상을 알려주세요.
               </p>
             </div>
           </div>
 
-          {/* Right CTA Box */}
           <div className="w-full lg:w-2/5 flex flex-col justify-center">
             <div className="bg-slate-900 rounded-[2.5rem] p-8 md:p-10 shadow-2xl relative overflow-hidden text-center">
-              <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-white via-transparent to-transparent"></div>
-              
+              <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-white via-transparent to-transparent" />
+
               <div className="w-20 h-20 bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner border border-slate-700">
                 <MapPin className="w-10 h-10 text-orange-500" />
               </div>
-              
+
               <h3 className="text-2xl md:text-3xl font-extrabold text-white mb-4 leading-snug break-keep">
                 우리 동네도 상담 가능한지<br />
                 확인해보세요
               </h3>
-              
+
               <p className="text-slate-300 font-medium mb-10 break-keep">
                 현장 위치와 막힘 증상을 알려주시면<br />
                 빠르게 안내해 드리겠습니다.
               </p>
-              
+
               <a
-                href={`tel:${contactInfo.phone}`}
-                className="w-full flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-8 py-5 rounded-2xl font-bold text-lg transition-all hover:-translate-y-1 shadow-lg shadow-orange-500/30"
+                href={telHref()}
+                className="w-full flex flex-col items-center justify-center gap-1 bg-orange-500 hover:bg-orange-600 text-white px-8 py-5 rounded-2xl font-extrabold transition-all hover:-translate-y-1 shadow-lg shadow-orange-500/30 leading-none"
               >
-                <PhoneCall className="w-5 h-5" />
-                출동 가능 지역 상담하기
+                <span className="inline-flex items-center gap-2 text-sm opacity-95">
+                  <PhoneCall className="w-5 h-5" />
+                  {phoneCtaSubLabel(regionName)}
+                </span>
+                <span className="text-2xl md:text-3xl tracking-tight">{phoneCtaLabel(regionName)}</span>
               </a>
             </div>
           </div>
-          
         </div>
       </div>
     </section>

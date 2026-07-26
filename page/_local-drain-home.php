@@ -90,7 +90,7 @@ if (function_exists('onoff_builder_rewrite_asset_paths')) {
 
 $site_name = function_exists('g5site_cfg') ? g5site_cfg('site_name', '하수구 해결센터') : '하수구 해결센터';
 $page_title = $local_dong_name . ' 하수구막힘 긴급출동 | ' . $site_name;
-$page_desc = $local_dong_name . ' 싱크대·변기·배수구·하수구 역류 긴급 상담. 사진 1장으로 빠른 안내.';
+$page_desc = $local_dong_name . ' 싱크대·변기·배수구·하수구 역류 긴급 상담. 전화 한 통이면 빠른 안내.';
 $canonical_path = isset($local_page_url) && $local_page_url !== ''
     ? (string) $local_page_url
     : '/page/local-' . $local_dong_slug . '.php';
