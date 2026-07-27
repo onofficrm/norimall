@@ -23,6 +23,11 @@ $services = array(
     array('url' => '/page/service-commercial.php', 'title' => '경기광주 상가하수구청소', 'desc' => '음식점·카페·상가 주방·바닥 배수'),
 );
 
+$nearby_services = array(
+    array('url' => '/page/yangpyeong-clean.php', 'title' => '양평구하수구청소', 'desc' => '양평·용문·지평 등 인근 하수구·배수 청소'),
+    array('url' => '/page/yangpyeong-clog.php', 'title' => '양평구하수구막힘', 'desc' => '하수구·싱크대·변기 막힘·역류 전화 상담'),
+);
+
 g5_page_start($main_kw . ' 서비스');
 ?>
 <div class="page-template page-service">
@@ -46,6 +51,22 @@ g5_page_start($main_kw . ' 서비스');
       <p class="page-section__desc">검색 의도에 맞는 페이지로 이동해 주세요. 모든 상담은 전화로 진행됩니다.</p>
       <div class="card-grid card-grid--auto">
         <?php foreach ($services as $item) { ?>
+        <article class="base-card">
+          <h3 class="base-card-title"><a href="<?php echo G5_URL . $item['url']; ?>"><?php echo get_text($item['title']); ?></a></h3>
+          <p class="base-card-desc"><?php echo get_text($item['desc']); ?></p>
+          <p><a href="<?php echo G5_URL . $item['url']; ?>" class="btn btn-outline">자세히 보기</a></p>
+        </article>
+        <?php } ?>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section page-section--alt reveal">
+    <div class="page-inner">
+      <h2 class="page-section__title">인근 지역 키워드</h2>
+      <p class="page-section__desc">경기광주와 인접한 양평구 검색 키워드도 별도 페이지로 안내합니다.</p>
+      <div class="card-grid card-grid--auto">
+        <?php foreach ($nearby_services as $item) { ?>
         <article class="base-card">
           <h3 class="base-card-title"><a href="<?php echo G5_URL . $item['url']; ?>"><?php echo get_text($item['title']); ?></a></h3>
           <p class="base-card-desc"><?php echo get_text($item['desc']); ?></p>

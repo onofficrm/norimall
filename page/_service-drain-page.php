@@ -32,8 +32,19 @@ $service_phone = g5site_cfg('phone', '');
 $service_tel = function_exists('g5site_tel_link') ? g5site_tel_link($service_phone) : ('tel:' . preg_replace('/[^0-9+]/', '', $service_phone));
 $page_title = $service_keyword . ' | ' . $company;
 $page_description = $service_description;
-$page_keywords = $service_keyword . ',' . $main_kw . ',원진하수구,' . $region_name . ' 하수구청소';
-$canonical_url = (defined('G5_URL') ? G5_URL : '') . '/page/service-' . preg_replace('/[^a-z0-9-]/', '', $service_slug) . '.php';
+$service_area_label = isset($service_area_served) && trim((string) $service_area_served) !== ''
+    ? trim((string) $service_area_served)
+    : $region_name;
+$page_keywords = $service_keyword . ',' . $main_kw . ',원진하수구,' . $service_area_label . ' 하수구청소';
+if (isset($service_canonical_path) && trim((string) $service_canonical_path) !== '') {
+    $path = trim((string) $service_canonical_path);
+    if ($path[0] !== '/') {
+        $path = '/' . ltrim($path, '/');
+    }
+    $canonical_url = (defined('G5_URL') ? G5_URL : '') . $path;
+} else {
+    $canonical_url = (defined('G5_URL') ? G5_URL : '') . '/page/service-' . preg_replace('/[^a-z0-9-]/', '', $service_slug) . '.php';
+}
 $page_canonical = $canonical_url;
 
 $local_areas = array();
@@ -44,13 +55,17 @@ if (function_exists('g5site_public_profile')) {
     }
 }
 
-$related_services = array(
-    array('slug' => 'sink', 'name' => '싱크대·주방 배관 청소', 'url' => '/page/service-sink.php'),
-    array('slug' => 'drain', 'name' => '욕실·배수구 청소', 'url' => '/page/service-drain.php'),
-    array('slug' => 'toilet', 'name' => '변기 막힘 점검', 'url' => '/page/service-toilet.php'),
-    array('slug' => 'commercial', 'name' => '상가·음식점 하수구청소', 'url' => '/page/service-commercial.php'),
-    array('slug' => 'pipe', 'name' => '배관 청소', 'url' => '/page/service-pipe.php'),
-);
+if (!isset($related_services) || !is_array($related_services) || !$related_services) {
+    $related_services = array(
+        array('slug' => 'sink', 'name' => '싱크대·주방 배관 청소', 'url' => '/page/service-sink.php'),
+        array('slug' => 'drain', 'name' => '욕실·배수구 청소', 'url' => '/page/service-drain.php'),
+        array('slug' => 'toilet', 'name' => '변기 막힘 점검', 'url' => '/page/service-toilet.php'),
+        array('slug' => 'commercial', 'name' => '상가·음식점 하수구청소', 'url' => '/page/service-commercial.php'),
+        array('slug' => 'pipe', 'name' => '배관 청소', 'url' => '/page/service-pipe.php'),
+        array('slug' => 'yangpyeong-clean', 'name' => '양평구하수구청소', 'url' => '/page/yangpyeong-clean.php'),
+        array('slug' => 'yangpyeong-clog', 'name' => '양평구하수구막힘', 'url' => '/page/yangpyeong-clog.php'),
+    );
+}
 
 g5_page_start($service_name);
 ?>
@@ -62,12 +77,12 @@ g5_page_start($service_name);
         <a href="<?php echo G5_URL; ?>/page/service.php"><?php echo get_text($main_kw); ?></a> /
         <span aria-current="page"><?php echo get_text($service_name); ?></span>
       </nav>
-      <p class="page-eyebrow">WONJIN · <?php echo get_text($region_name); ?></p>
+      <p class="page-eyebrow">WONJIN · <?php echo get_text($service_area_label); ?></p>
       <h1 class="page-title"><?php echo get_text($service_keyword); ?></h1>
       <p class="page-desc" data-speakable="true"><?php echo get_text($service_description); ?></p>
       <div class="page-cta__actions">
         <a href="<?php echo htmlspecialchars($service_tel, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-primary">전화상담 <?php echo get_text($service_phone); ?></a>
-        <a href="<?php echo G5_URL; ?>/#areas" class="btn btn-outline"><?php echo get_text($region_name); ?> 권역별 안내</a>
+        <a href="<?php echo G5_URL; ?>/#areas" class="btn btn-outline"><?php echo get_text($region_name); ?>·인근 권역</a>
       </div>
     </div>
   </header>
@@ -163,7 +178,7 @@ g5_page_start($service_name);
     <section class="page-section page-cta page-cta--dark reveal">
       <div class="page-inner page-cta__inner">
         <h2 class="page-cta__title"><?php echo get_text($service_keyword); ?> 전화상담</h2>
-        <p class="page-cta__desc">현재 증상과 <?php echo get_text($region_name); ?> 내 위치를 알려주시면 확인해야 할 항목을 안내합니다.</p>
+        <p class="page-cta__desc">현재 증상과 <?php echo get_text($service_area_label); ?> 내 위치를 알려주시면 확인해야 할 항목을 안내합니다.</p>
         <a href="<?php echo htmlspecialchars($service_tel, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-primary">
           <?php echo get_text($service_phone); ?>
         </a>
@@ -182,7 +197,7 @@ $service_schema = array(
             'name' => $service_keyword,
             'serviceType' => $service_name,
             'description' => $service_description,
-            'areaServed' => array('@type' => 'Place', 'name' => $region_name),
+            'areaServed' => array('@type' => 'Place', 'name' => $service_area_label),
             'provider' => array(
                 '@type' => array('LocalBusiness', 'PlumbingService'),
                 'name' => $company,
