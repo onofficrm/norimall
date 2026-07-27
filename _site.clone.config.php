@@ -43,8 +43,15 @@ return array(
         '경기광주 변기 막힘',
         '경기광주 배수구 청소',
         '오포 하수구청소',
+        '오포하수구막힘',
         '초월 하수구청소',
+        '초월하수구막힘',
         '곤지암 하수구청소',
+        '곤지암하수구막힘',
+        '경안하수구막힘',
+        '탄벌하수구막힘',
+        '광남하수구막힘',
+        '신현하수구막힘',
         '양평구하수구청소',
         '양평구하수구막힘',
         '원진하수구',
@@ -122,6 +129,8 @@ return array(
             'name' => '오포',
             'label' => '오포 하수구청소',
             'url' => '/page/local-opo.php',
+            'clog_url' => '/page/local-opo-clog.php',
+            'clog_label' => '오포하수구막힘',
             'blurb' => '오포1·2동·고산·문형 일대 아파트·빌라·상가 주방 배관 막힘과 하수구청소를 전화로 안내합니다.',
         ),
         array(
@@ -129,6 +138,8 @@ return array(
             'name' => '초월',
             'label' => '초월 하수구청소',
             'url' => '/page/local-chowol.php',
+            'clog_url' => '/page/local-chowol-clog.php',
+            'clog_label' => '초월하수구막힘',
             'blurb' => '초월읍 학동·산수로 인근 주거·공장·상가의 배수 불량과 하수구 역류를 현장 상황에 맞춰 상담합니다.',
         ),
         array(
@@ -136,6 +147,8 @@ return array(
             'name' => '곤지암',
             'label' => '곤지암 하수구청소',
             'url' => '/page/local-gonjiam.php',
+            'clog_url' => '/page/local-gonjiam-clog.php',
+            'clog_label' => '곤지암하수구막힘',
             'blurb' => '곤지암읍·오향 일대 단독·다가구·음식점 주방 배수구 막힘과 배관 청소를 빠르게 안내합니다.',
         ),
         array(
@@ -143,6 +156,8 @@ return array(
             'name' => '경안·송정',
             'label' => '경안 하수구청소',
             'url' => '/page/local-gyeongan.php',
+            'clog_url' => '/page/local-gyeongan-clog.php',
+            'clog_label' => '경안하수구막힘',
             'blurb' => '경안동·송정동 시청 인근과 중심상권의 싱크대·화장실·하수구 막힘을 전화 상담으로 접수합니다.',
         ),
         array(
@@ -150,6 +165,8 @@ return array(
             'name' => '탄벌·쌍령',
             'label' => '탄벌 하수구청소',
             'url' => '/page/local-tanbeol.php',
+            'clog_url' => '/page/local-tanbeol-clog.php',
+            'clog_label' => '탄벌하수구막힘',
             'blurb' => '탄벌동·쌍령동 신축·기존 아파트 단지의 반복 막힘과 배수 악취 원인을 확인하고 안내합니다.',
         ),
         array(
@@ -157,6 +174,8 @@ return array(
             'name' => '광남',
             'label' => '광남 하수구청소',
             'url' => '/page/local-gwangnam.php',
+            'clog_url' => '/page/local-gwangnam-clog.php',
+            'clog_label' => '광남하수구막힘',
             'blurb' => '광남1·2동 대단지와 상가 밀집 구간의 주방·욕실·바닥 배수 문제를 전화로 상담합니다.',
         ),
         array(
@@ -164,6 +183,8 @@ return array(
             'name' => '신현·능평',
             'label' => '신현 하수구청소',
             'url' => '/page/local-sinhyeon.php',
+            'clog_url' => '/page/local-sinhyeon-clog.php',
+            'clog_label' => '신현하수구막힘',
             'blurb' => '신현동·능평동 오포 권역 주거·근린상가의 하수구청소와 배관 점검을 출동 가능 여부와 함께 안내합니다.',
         ),
         array(
@@ -171,6 +192,8 @@ return array(
             'name' => '도척',
             'label' => '도척 하수구청소',
             'url' => '/page/local-docheok.php',
+            'clog_url' => '/page/local-docheok-clog.php',
+            'clog_label' => '도척하수구막힘',
             'blurb' => '도척면 농촌·공장·주택 배관의 막힘·악취 증상을 전화로 확인한 뒤 필요한 작업을 안내합니다.',
         ),
         array(
@@ -178,6 +201,8 @@ return array(
             'name' => '퇴촌',
             'label' => '퇴촌 하수구청소',
             'url' => '/page/local-toechon.php',
+            'clog_url' => '/page/local-toechon-clog.php',
+            'clog_label' => '퇴촌하수구막힘',
             'blurb' => '퇴촌면 주택·펜션·근린시설의 배수 불량과 하수구 문제를 지역 출동 기준으로 상담합니다.',
         ),
         array(
@@ -185,6 +210,8 @@ return array(
             'name' => '남종',
             'label' => '남종 하수구청소',
             'url' => '/page/local-namjong.php',
+            'clog_url' => '/page/local-namjong-clog.php',
+            'clog_label' => '남종하수구막힘',
             'blurb' => '남종면 일대 단독주택·소규모 시설의 싱크대·변기·배수구 막힘을 전화 상담으로 안내합니다.',
         ),
         array(
@@ -192,6 +219,8 @@ return array(
             'name' => '남한산성',
             'label' => '남한산성 하수구청소',
             'url' => '/page/local-namhansanseong.php',
+            'clog_url' => '/page/local-namhansanseong-clog.php',
+            'clog_label' => '남한산성하수구막힘',
             'blurb' => '남한산성면 인근 주거·상가의 하수구·배수 문제를 경기광주 출동권으로 상담합니다.',
         ),
         array(

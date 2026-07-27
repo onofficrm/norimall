@@ -139,18 +139,28 @@ g5_page_start($service_name);
       <div class="page-inner">
         <h2 class="page-section__title"><?php echo get_text($region_name); ?> 권역별 <?php echo get_text($service_name); ?></h2>
         <p class="page-section__desc">우리 동네 페이지에서 지역 키워드와 함께 전화상담 안내를 확인하세요.</p>
-        <ul class="page-list" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.75rem;list-style:none;padding:0;">
+        <ul class="page-list" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.75rem;list-style:none;padding:0;">
           <?php foreach ($local_areas as $area) {
-              if (empty($area['name'])) {
+              if (empty($area['name']) || empty($area['slug'])) {
+                  continue;
+              }
+              if (strpos((string) $area['slug'], 'yangpyeong') === 0) {
                   continue;
               }
               $href = !empty($area['url']) ? $area['url'] : ('/page/local-' . $area['slug'] . '.php');
               $label = !empty($area['label']) ? $area['label'] : ($area['name'] . ' 하수구청소');
+              $clog_href = !empty($area['clog_url']) ? $area['clog_url'] : ('/page/local-' . $area['slug'] . '-clog.php');
+              $clog_label = !empty($area['clog_label']) ? $area['clog_label'] : (preg_replace('/[^0-9a-zA-Z가-힣]/u', '', explode('·', (string) $area['name'])[0]) . '하수구막힘');
               ?>
           <li>
-            <a href="<?php echo htmlspecialchars($href, ENT_QUOTES, 'UTF-8'); ?>" style="display:block;padding:.85rem 1rem;border:1px solid #e2e8f0;border-radius:.85rem;background:#fff;font-weight:700;text-decoration:none;color:#0f172a;">
-              <?php echo get_text($label); ?>
-            </a>
+            <div style="display:flex;flex-direction:column;gap:.45rem;padding:.85rem 1rem;border:1px solid #e2e8f0;border-radius:.85rem;background:#fff;">
+              <a href="<?php echo htmlspecialchars($href, ENT_QUOTES, 'UTF-8'); ?>" style="font-weight:700;text-decoration:none;color:#0f172a;">
+                <?php echo get_text($label); ?>
+              </a>
+              <a href="<?php echo htmlspecialchars($clog_href, ENT_QUOTES, 'UTF-8'); ?>" style="font-size:.875rem;font-weight:600;text-decoration:none;color:#ea580c;">
+                <?php echo get_text($clog_label); ?> →
+              </a>
+            </div>
           </li>
           <?php } ?>
         </ul>

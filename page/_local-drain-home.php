@@ -26,6 +26,8 @@ $local_dong_slug = preg_replace('/[^a-z0-9-]/', '', strtolower((string) $local_d
 $local_dong_name = isset($local_dong_name) ? trim(strip_tags((string) $local_dong_name)) : '';
 $local_area_blurb = '';
 $local_area_label = '';
+$local_clog_url = '/page/local-' . $local_dong_slug . '-clog.php';
+$local_clog_label = '';
 
 if (function_exists('g5site_public_profile')) {
     $public_profile = g5site_public_profile();
@@ -41,6 +43,12 @@ if (function_exists('g5site_public_profile')) {
             }
             if (!empty($profile_area['label'])) {
                 $local_area_label = trim(strip_tags((string) $profile_area['label']));
+            }
+            if (!empty($profile_area['clog_url'])) {
+                $local_clog_url = (string) $profile_area['clog_url'];
+            }
+            if (!empty($profile_area['clog_label'])) {
+                $local_clog_label = trim(strip_tags((string) $profile_area['clog_label']));
             }
             break;
         }
@@ -98,6 +106,7 @@ if (function_exists('onoff_builder_rewrite_asset_paths')) {
 
 $company = function_exists('g5site_cfg') ? g5site_cfg('company_name', '원진하수구') : '원진하수구';
 $keyword_label = $local_area_label !== '' ? $local_area_label : ($local_dong_name . ' 하수구청소');
+$clog_keyword_label = $local_clog_label !== '' ? $local_clog_label : (preg_replace('/[^0-9a-zA-Z가-힣]/u', '', explode('·', $local_dong_name)[0]) . '하수구막힘');
 $page_title = $keyword_label . ' | ' . $company;
 $page_desc = $local_area_blurb !== ''
     ? $local_area_blurb
@@ -123,7 +132,11 @@ $local_faqs = array(
     ),
     array(
         'q' => $local_dong_name . ' 싱크대·변기 막힘도 상담되나요?',
-        'a' => '네. ' . $local_dong_name . ' 주방 싱크대, 화장실 변기, 배수구 악취·역류 등 다양한 배수 문제를 전화로 상담할 수 있습니다.',
+        'a' => '네. ' . $local_dong_name . ' 주방 싱크대, 화장실 변기, 배수구 악취·역류 등 다양한 배수 문제를 전화로 상담할 수 있습니다. 막힘 전용 안내는 ' . $clog_keyword_label . ' 페이지도 참고하세요.',
+    ),
+    array(
+        'q' => $clog_keyword_label . ' 전용 페이지가 있나요?',
+        'a' => '네. ' . $local_dong_name . ' 하수구·싱크대·변기 막힘·역류 증상은 ' . $clog_keyword_label . ' 페이지에서 확인 순서와 FAQ를 안내합니다.',
     ),
     array(
         'q' => $local_dong_name . ' 밤·주말에도 전화 상담이 되나요?',
@@ -138,6 +151,7 @@ if (function_exists('onoff_builder_inject_site_profile')) {
         'seoDescription' => $page_desc,
         'mainKeyword' => $keyword_label,
         'secondaryKeywords' => array(
+            $clog_keyword_label,
             $local_dong_name . ' 하수구막힘',
             $local_dong_name . ' 싱크대 막힘',
             $local_dong_name . ' 변기 막힘',

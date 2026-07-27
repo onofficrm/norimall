@@ -28,6 +28,31 @@ $nearby_services = array(
     array('url' => '/page/yangpyeong-clog.php', 'title' => '양평구하수구막힘', 'desc' => '하수구·싱크대·변기 막힘·역류 전화 상담'),
 );
 
+$local_clog_services = array();
+if (function_exists('g5site_public_profile')) {
+    $profile = g5site_public_profile();
+    $profile_areas = isset($profile['localAreas']) && is_array($profile['localAreas'])
+        ? $profile['localAreas']
+        : array();
+    foreach ($profile_areas as $area) {
+        if (empty($area['slug']) || empty($area['name'])) {
+            continue;
+        }
+        if (strpos((string) $area['slug'], 'yangpyeong') === 0) {
+            continue;
+        }
+        $clog_url = !empty($area['clog_url']) ? $area['clog_url'] : ('/page/local-' . $area['slug'] . '-clog.php');
+        $clog_title = !empty($area['clog_label'])
+            ? $area['clog_label']
+            : (preg_replace('/[^0-9a-zA-Z가-힣]/u', '', explode('·', (string) $area['name'])[0]) . '하수구막힘');
+        $local_clog_services[] = array(
+            'url' => $clog_url,
+            'title' => $clog_title,
+            'desc' => $area['name'] . ' 하수구·싱크대·변기 막힘·역류 전화 상담',
+        );
+    }
+}
+
 g5_page_start($main_kw . ' 서비스');
 ?>
 <div class="page-template page-service">
@@ -60,6 +85,24 @@ g5_page_start($main_kw . ' 서비스');
       </div>
     </div>
   </section>
+
+  <?php if ($local_clog_services) { ?>
+  <section class="page-section reveal">
+    <div class="page-inner">
+      <h2 class="page-section__title">권역별 하수구막힘</h2>
+      <p class="page-section__desc">경기광주 권역별 하수구막힘 키워드 페이지입니다. 증상과 위치를 전화로 알려주시면 확인 순서를 안내합니다.</p>
+      <div class="card-grid card-grid--auto">
+        <?php foreach ($local_clog_services as $item) { ?>
+        <article class="base-card">
+          <h3 class="base-card-title"><a href="<?php echo G5_URL . $item['url']; ?>"><?php echo get_text($item['title']); ?></a></h3>
+          <p class="base-card-desc"><?php echo get_text($item['desc']); ?></p>
+          <p><a href="<?php echo G5_URL . $item['url']; ?>" class="btn btn-outline">자세히 보기</a></p>
+        </article>
+        <?php } ?>
+      </div>
+    </div>
+  </section>
+  <?php } ?>
 
   <section class="page-section page-section--alt reveal">
     <div class="page-inner">
