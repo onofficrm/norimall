@@ -80,6 +80,7 @@ export const contactInfo = {
 
 export const keywords = {
   main: runtime.mainKeyword?.trim() || `${regionName}하수구막힘`,
+  clog: `${regionName}하수구막힘`,
   secondary: Array.isArray(runtime.secondaryKeywords) ? runtime.secondaryKeywords : [],
 };
 
@@ -96,6 +97,11 @@ export const homeFaqs: Faq[] = Array.isArray(runtime.homeFaqs) ? runtime.homeFaq
 export const openingHoursLabel = runtime.openingHoursLabel?.trim() || '';
 
 export const sampleCases: SampleCase[] = Array.isArray(runtime.sampleCases) ? runtime.sampleCases : [];
+
+export const pageIntro = homeSummary || '';
+export const howToSteps: Array<{ name: string; text: string }> = [];
+export const howToName = '하수구가 막혔을 때 대처 방법';
+export const siteDefinition = homeSummary || '';
 
 export function assetUrl(filename: string) {
   const projectId = runtime.builderProjectId || 'gangdong-drain';
