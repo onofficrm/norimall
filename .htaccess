@@ -1,0 +1,8 @@
+RewriteEngine On
+
+# Force main domain norimall.kr
+RewriteCond %{HTTP_HOST} ^(www\.)?norimall\.iwinv\.net$ [NC]
+RewriteRule ^(.*)$ https://norimall.kr/$1 [R=301,L]
+
+RewriteCond %{HTTP_HOST} ^www\.norimall\.kr$ [NC]
+RewriteRule ^(.*)$ https://norimall.kr/$1 [R=301,L]
